@@ -25,18 +25,16 @@ export interface PlaceDetail {
 
 export function TourList(){
 
-  const dispatch = useAppDispatch();
-  
+  const dispatch = useAppDispatch();  
+  // 유저
   const {userInfo} = useAppSelector(state=>state.auth);
   const tourState = useAppSelector(state=>state.tourClick);
-
-  const [isOpen,setIsOpen] = useState(false);
   // 모달창
+  const [isOpen,setIsOpen] = useState(false);
   const onOpen :React.MouseEventHandler<HTMLButtonElement> = (e)=>{
     e.stopPropagation();
     setIsOpen(true);
   }
-  // 모달창 닫기
   const onClose = ()=>{
     setIsOpen(false);
   }
@@ -71,7 +69,7 @@ export function TourList(){
     <>
       <div 
         onClick={handleUp}
-        className={`bg-white rounded-t-[10px] rounded-r-[10px] pt-7 font-pretendard h-[calc(100vh-70px)] flex flex-col z-30 relative select-none`}
+        className={`bg-white rounded-t-[10px] rounded-r-[10px] pt-7 font-pretendard h-screen flex flex-col z-30 relative select-none`}
       >
         {
           tourState.up && 
@@ -87,7 +85,7 @@ export function TourList(){
           </button>
         </div>
 
-        <div className="overflow-y-auto min-h-[800px] scrollbar-hide">
+        <div className="overflow-y-auto scrollbar-hide">
           {
             place.map((e,i)=><TourListLayout onClick={()=>spotViewOpen(e)} item={e} key={i} />)
           }

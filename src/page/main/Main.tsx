@@ -149,11 +149,14 @@ export default function Main() {
         </Map>
 
         {/* 마커 관련 명소 */}
-        <SpotIntro getPostion={getPostion} />
+        <SpotIntro 
+          getPostion={getPostion} 
+        />
 
         {/* 네비게이션바 */}
         <Navigation />
       </main>
+
       <SpotView />
 
       {

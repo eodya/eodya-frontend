@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { LocationBtn } from "./Btn/LocationBtn";
 import { TourList } from "./TourList";
 import { MarkerInfo } from "./MarkerInfo";
@@ -26,7 +25,7 @@ export default function SpotIntro({getPostion} : {getPostion : any}){
           tourState.show ? tourState.up ? "0%" : "85%" : spotState.show ? "0%" : "100%"
         })`
       }}
-      className={`absolute translate-y-full bottom-[70px] z-50 w-full transition-transform duration-300`}
+      className={`absolute translate-y-full bottom-0 z-[60] w-full transition-transform duration-300`}
     >
       <div
         className={`absolute bottom-full left-5 z-20 mb-5 transition-transform duration-500}`}

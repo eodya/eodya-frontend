@@ -1,10 +1,10 @@
 // 스크롤 버전용
 import { useEffect, useState } from "react";
 import { ReactComponent as More} from "../../assets/image/icon/more.svg";
-import RankModal from "./Modal/RankModal";
-import { useAppSelector } from "../../store/hooks";
-import { TourListLayout } from "./TourListLayout";
-import { change as TourChange } from "../../store/features/main/tourList/openSlice";
+import RankModal from "../Modal/RankModal";
+import { useAppSelector } from "../../../store/hooks";
+import { TourListLayout } from "../TourListLayout";
+import { change as TourChange } from "../../../store/features/main/tourList/openSlice";
 
 export function TourList(){
 

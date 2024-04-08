@@ -1,12 +1,12 @@
 // 스크롤 버전은 추후에 해야할것 같습니다.
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { change as yChange } from "../../store/features/main/spotInfo/ySlice";
-import { change as TourChange } from "../../store/features/main/tourList/openSlice";
-import { change as InfoChange } from "../../store/features/main/spotInfo/InfoSlice";
-import { LocationBtn } from "./Btn/LocationBtn";
-import { TourList } from "./TourList";
-import { MarkerInfo } from "./MarkerInfo";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { change as yChange } from "../../../store/features/main/spotInfo/ySlice";
+import { change as TourChange } from "../../../store/features/main/tourList/openSlice";
+import { change as InfoChange } from "../../../store/features/main/spotInfo/InfoSlice";
+import { LocationBtn } from "../Btn/LocationBtn";
+import { TourList } from "../TourList";
+import { MarkerInfo } from "../MarkerInfo";
 
 export function SpotIntro({getPostion,getTourList} : {getPostion : any,getTourList : any}){
   const dispatch = useAppDispatch();
