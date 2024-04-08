@@ -1,19 +1,13 @@
-import TopBar from "../../components/common/menu/TopBar";
 import Navigation from "../../components/common/menu/Navigation";
-import { ReactComponent as SettingSVG } from "../../assets/image/icon/setting.svg";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { ReactComponent as Vintage } from "../../assets/image/icon/vintage.svg";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import FormNickname from "../../components/mypage/Information/FormNickname";
+import { useCallback, useState } from "react";
+import { useAppSelector } from "../../store/hooks";
 import axios from "axios";
 import ComingModal from "../../components/mypage/Modal/ComingModal";
-import { Link } from "react-router-dom";
 import ReviewPage from "../../components/mypage/ReviewPage";
 import InfiniteScroll from "react-infinite-scroller";
-import { useMypageTotal } from "../../hook/useMypageTotal";
 import Spinner from "../../components/common/spinner/Spinner";
-import { logout } from "../../store/features/auth/authSlice";
-import { ReactComponent as LogoutSVG} from "../../assets/image/icon/logout.svg"
+import Information from "../../components/mypage/Information/Information";
+import Tabmenu from "../../components/mypage/TabMenu";
 
 export interface RootInterface {
   reviewTotalCount: number;
@@ -30,9 +24,7 @@ export interface Review {
   placeStatus: string;
 }
 
-export default function BookMark() {
-
-  const dispatch = useAppDispatch();
+function Review() {
 
   // modal
   const [isOpen, setIsOpen] = useState(false);
@@ -42,8 +34,6 @@ export default function BookMark() {
 
   // user
   const { userInfo } = useAppSelector((state) => state.auth);
-
-  const { totalBookmarkCount, reviewTotalCount } = useMypageTotal();
 
   const [reivews, setReivews] = useState<Review[]>([]);
   const [hasNext, setHasNext] = useState(true);
@@ -69,38 +59,10 @@ export default function BookMark() {
     <>
       <main className="h-screen">
         <div className="flex h-[calc(100vh-70px)] flex-col">
-          <div className="flex-none">
-            
-            <div className="flex items-center justify-between px-6 font-pretendard leading-none tracking-custom mt-16">
-              <div className="flex items-center">
-                <div className="relative h-[68px] w-[68px] rounded-full bg-[#EBEBEB]">
-                  <Vintage className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
-                </div>
-                <div className="ml-4">
-                  <FormNickname />
-                </div>
-              </div>
-              <button
-                onClick={() => dispatch(logout())}
-              >
-                <LogoutSVG/>
-              </button>
-            </div>
 
-            <div className="mt-6 flex border-b border-gray-300 text-center text-[13px] font-semibold text-gray-300">
-              <Link
-                to={"/mypage"}
-                className={`" relative flex-1 py-4 after:absolute after:bottom-0 after:h-1 after:w-full  after:translate-y-1/2`}
-              >
-                북마크 {totalBookmarkCount}
-              </Link>
-              <Link
-                to={"/mypage/review"}
-                className={`relative flex-1 py-4 text-primary after:absolute after:bottom-0 after:block after:h-1 after:w-full after:translate-y-1/2 after:bg-primary`}
-              >
-                후기 {reviewTotalCount}
-              </Link>
-            </div>
+          <div className="flex-none">
+            <Information/>
+            <Tabmenu/>
           </div>
 
           <div className="overflow-y-auto h-full scrollbar-hide">
@@ -129,3 +91,5 @@ export default function BookMark() {
     </>
   );
 }
+
+export default Review
