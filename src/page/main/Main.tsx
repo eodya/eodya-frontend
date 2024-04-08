@@ -22,7 +22,6 @@ export default function Main() {
   const { userInfo } = useAppSelector((state) => state.auth);
   const [bookMark, setBookMark] = useState(false);
 
-  // 마커 fetch
   const { markers } = useAppSelector((state) => state.mainMarker);
   // 마커 가져오기
   useEffect(() => {
@@ -32,6 +31,9 @@ export default function Main() {
 
   // 지도 초기위치 설정, 포지션 가져오기
   const {state,setState,getPostion} = useGetPostion();
+
+  // 마커 클릭
+  const [clickMarker,setClickMarker] = useState(0);
 
   // 중심좌표 변경
   const onCenterChanged = (map : kakao.maps.Map)=>{
@@ -79,16 +81,19 @@ export default function Main() {
           onDragStart={() => {
             dispatch(hide());
             dispatch(spotHide());
+            setClickMarker(0);
           }}
           onCenterChanged={onCenterChanged}
         >
           {/* 유저 */}
-          {location && (
-            <UserMarker
-              clickable={true}
-              position={{ lat: location.latitude, lng: location.longitude }}
-            />
-          )}
+          {
+            location && (
+              <UserMarker
+                clickable={true}
+                position={{ lat: location.latitude, lng: location.longitude }}
+              />
+            )
+          }
 
           {/* 마커 */}
           {markers.map((e, i) => (
@@ -106,6 +111,27 @@ export default function Main() {
               }}
             />
           ))}
+
+          {/* 테스트용 마커 */}
+          <BlossomMarker
+            position={{ lat: 37.581602151002315, lng: 126.69745010724675 }}
+            onClick={() => {
+              if (!userInfo) return;
+              // info 데이터
+              dispatch(hide());
+              dispatch(spotShow());
+              setClickMarker(0);
+              setState({
+                center : {
+                  lat: 37.581602151002315, 
+                  lng: 126.69745010724675
+                },
+                isPanto : true
+              })
+            }}
+            isClicked={clickMarker === 0}
+          />
+
         </Map>
 
         {/* 마커 관련 명소 */}
