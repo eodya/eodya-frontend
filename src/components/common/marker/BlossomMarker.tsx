@@ -65,6 +65,7 @@ export default function BlossomMarker({
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
       onClick={onClick}
+      zIndex={2}
     />
   )
 

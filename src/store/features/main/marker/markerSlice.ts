@@ -1,18 +1,6 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
-type MainMarker = {
-    placeId: number;
-    x: number;
-    y: number;
-}
-
-interface initialStateType {
-    loading : boolean;
-    markers : MainMarker[];
-    error : boolean;
-}
+import { initialStateType } from "../../../@types/main/marker/MarkerType";
 
 export const getMarker = createAsyncThunk("get/marker",async(token : string)=>{
 
@@ -21,7 +9,9 @@ export const getMarker = createAsyncThunk("get/marker",async(token : string)=>{
             Authorization : token
         }
     });
+
     const {data} = response;
+    
     return data;
 
 });

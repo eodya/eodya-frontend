@@ -1,19 +1,6 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
-type getInfoPlace = {
-    loading : boolean;
-    info : {
-        name: string;
-        addressDetail: string;
-        image: string;
-        placeStatus: string;
-        bookmarkCount: number;
-        bookmarkStatus: boolean;
-        placeId : number;
-    },
-    error : boolean;
-}
+import { getInfoPlace } from "../../../@types/main/spotInfo/InfoPlaceType";
 
 const initialState :getInfoPlace = {
     loading: true,

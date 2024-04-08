@@ -13,6 +13,7 @@ import PublicRoute from "./components/login/PublicRoute";
 import Main from "./page/main/Main";
 import LoginPage from "./page/login/Login";
 import Spinner from "./components/common/spinner/Spinner";
+import List from "./page/review/List";
 const Mypage = lazy(() => import("./page/mypage/BookMark"));
 const Review = lazy(() => import("./page/mypage/Review"));
 const NewReviewPage = lazy(() => import("./page/new/Review"));
@@ -65,6 +66,13 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Main />} />
+          
+          <Route
+            path="/review/:placeId"
+            element={
+              <List/>
+            }
+          />
 
           {/* Public Routes */}
           <Route
