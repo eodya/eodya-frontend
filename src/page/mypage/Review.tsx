@@ -8,21 +8,7 @@ import InfiniteScroll from "react-infinite-scroller";
 import Spinner from "../../components/common/spinner/Spinner";
 import Information from "../../components/mypage/Information/Information";
 import Tabmenu from "../../components/mypage/TabMenu";
-
-export interface RootInterface {
-  reviewTotalCount: number;
-  reviews: Review[];
-  hasNext: boolean;
-}
-
-export interface Review {
-  placeId: number;
-  reviewDate: string;
-  image: string;
-  name: string;
-  reviewContent: string;
-  placeStatus: string;
-}
+import { Review as ReviewArrayType, ReviewType } from "../../types/mypage/ReviewType";
 
 function Review() {
 
@@ -35,7 +21,7 @@ function Review() {
   // user
   const { userInfo } = useAppSelector((state) => state.auth);
 
-  const [reivews, setReivews] = useState<Review[]>([]);
+  const [reivews, setReivews] = useState<ReviewArrayType[]>([]);
   const [hasNext, setHasNext] = useState(true);
   const [page, setPage] = useState(1);
 
@@ -45,7 +31,7 @@ function Review() {
         Authorization: userInfo?.token,
       },
     })
-    .then(({ data }: { data: RootInterface }) => {
+    .then(({ data }: { data: ReviewType }) => {
       setHasNext(data.hasNext);
       setReivews((prev) => [...prev, ...data.reviews]);
       setPage(page + 1);

@@ -2,7 +2,7 @@ import { GridLayout } from './GridLayout'
 import FlowerTag from '../common/tag/FlowerTag'
 import { Image } from './Image'
 import { ReactComponent as HorizSVG} from "../../assets/image/icon/horiz.svg";
-import { Review } from '../../page/mypage/Review';
+import { Review } from '../../types/mypage/ReviewType';
 
 export default function ReviewPage({item,index,setIsOpen}: {item: Review,index : number,setIsOpen : any}) {
   return (
