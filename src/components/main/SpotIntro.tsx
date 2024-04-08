@@ -36,12 +36,12 @@ export default function SpotIntro({getPostion} : {getPostion : any}){
 
       {
         !spotState.show &&
-          tourState.show && <TourList/>
+        tourState.show && <TourList/>
       }
 
       {
         !tourState.show && 
-          spotState.show &&<MarkerInfo />
+        spotState.show &&<MarkerInfo />
       }
 
     </div>

@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import { Map } from "react-kakao-maps-sdk";
-import { useDispatch } from "react-redux";
 import Input from "../../components/common/input/Input";
 import Navigation from "../../components/common/menu/Navigation";
 import BlossomMarker from "../../components/common/marker/BlossomMarker";
@@ -10,17 +9,13 @@ import { getCurrentLocation } from "../../utils/mapLocation/getCurrentLocation";
 import { logout } from "../../store/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useWatchLocation } from "../../hook/mapLocation/useWatchLocation";
-import UserMarker from "../../components/common/marker/UserMarker";
-import { change as TourChange } from "../../store/features/main/tourList/openSlice";
-  
-import {
-  getMarker,
-} from "../../store/features/main/marker/markerSlice";
+import UserMarker from "../../components/common/marker/UserMarker";  
+import { getMarker } from "../../store/features/main/marker/markerSlice";
 import { hide } from "../../store/features/main/map/tourClick";
 import { spotHide, spotShow } from "../../store/features/main/map/spotClick";
 import SpotIntro from "../../components/main/SpotIntro";
 import { getPlace } from "../../store/features/main/spotInfo/InfoPlace";
-import { getTourPlace } from "../../store/features/main/tourList/tourPlace";
+import { useGetPostion } from "../../hook/mapLocation/useGetPostion";
 
 export default function Main() {
   const dispatch = useAppDispatch();
@@ -35,30 +30,20 @@ export default function Main() {
     dispatch(getMarker(userInfo.token));
   }, [bookMark, userInfo]);
 
-  // 지도 초기위치 설정
-  const [state, setState] = useState({
-    // 지도의 초기 위치
-    center: { lat: 13, lng: 14 },
-    // 지도 위치 변경시 panto를 이용할지에 대해서 정의
-    isPanto: false,
-  });
+  // 지도 초기위치 설정, 포지션 가져오기
+  const {state,setState,getPostion} = useGetPostion();
 
-  // 포지션 가져오기
-  const getPostion = useCallback(async () => {
-    const result = await getCurrentLocation();
-    if (!result) return;
-
-    const { center, error } = result;
-
-    if (error) {
-      return alert(error.message);
-    }
-
-    if(!center) return;
-    setState({center,isPanto : true});
-
-  },[]);
-  useEffect(()=>{ getPostion(); },[]);
+  // 중심좌표 변경
+  const onCenterChanged = (map : kakao.maps.Map)=>{
+    const latlng = map.getCenter();
+    setState({
+      center: {
+        lat: latlng.getLat(),
+        lng: latlng.getLng(),
+      },
+      isPanto: false,
+    });
+  }
 
   // 현재 위치를 토대로 근처의 명소 가져오기
   const getTourList = () => {
@@ -71,6 +56,7 @@ export default function Main() {
   return (
     <>
       <main className="relative h-screen overflow-hidden">
+
         {/* 검색버튼 */}
         <div className="absolute top-[30px] z-50 w-full px-4">
           <Input type="text" placeholder="장소를 검색해 보세요" />
@@ -94,17 +80,7 @@ export default function Main() {
             dispatch(hide());
             dispatch(spotHide());
           }}
-          onCenterChanged={(map) => {
-            // 중심좌표 변경
-            const latlng = map.getCenter();
-            setState({
-              center: {
-                lat: latlng.getLat(),
-                lng: latlng.getLng(),
-              },
-              isPanto: false,
-            });
-          }}
+          onCenterChanged={onCenterChanged}
         >
           {/* 유저 */}
           {location && (
@@ -142,3 +118,11 @@ export default function Main() {
     </>
   );
 }
+
+
+/*   const [state, setState] = useState({
+      // 지도의 초기 위치
+      center: { lat: 13, lng: 14 },
+      // 지도 위치 변경시 panto를 이용할지에 대해서 정의
+      isPanto: false,
+    }); */
