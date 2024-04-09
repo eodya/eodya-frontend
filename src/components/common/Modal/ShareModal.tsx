@@ -2,9 +2,9 @@ import Modal from "react-modal";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-import Facebook from "../../../../../assets/image/social/Facebook.png";
-import Band from "../../../../../assets/image/social/Band.png";
-import Twitter from "../../../../../assets/image/social/Twitter.png";
+import Facebook from "../../../assets/image/social/Facebook.png";
+import Band from "../../../assets/image/social/Band.png";
+import Twitter from "../../../assets/image/social/Twitter.png";
 import BandShare from "../btn/Share/Social/BandShare";
 import KakakoShare from "../btn/Share/Social/KakakoShare";
 import { SnsBox } from "../btn/Share/SnsBox";

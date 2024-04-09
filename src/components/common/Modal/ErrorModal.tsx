@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
 
-import error from "../../../../../assets/image/icon/error.svg";
+import error from "../../../assets/image/icon/error.svg";
 import { RootState } from "../../../store/store";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { logout } from "../../../store/features/auth/authSlice";
