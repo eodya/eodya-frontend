@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import axios from "axios";
 
-import { useAppSelector } from "../../store/hooks";
-import { logout } from "../../store/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { open } from "../../store/features/errorModal/modalSlice";
 import TopBar from "../../components/common/menu/TopBar";
 import SpotMap from "../../components/new/spot/SpotMap";
 import SpotInfo from "../../components/new/SpotInfo";
@@ -32,7 +31,7 @@ function NewSpotPage() {
     addressDepth2: "",
   });
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleBackClick = () => {
     if (step === 1) {
@@ -95,20 +94,10 @@ function NewSpotPage() {
         })
         .catch((error: any) => {
           console.log(error);
-          // TODO: 이미 등록된 장소는 장소 등록이 아닌 후기 남기기로 넘어가야 함
-          if (error?.response?.data.code === "PLA-002") {
-            alert("이미 등록된 장소입니다. 다시 선택해 주세요.");
-          }
-          // TODO: 에러 처리 로직 구현
-          if (
-            error?.response?.data.code === "AUT-001" ||
-            error?.response?.data.code === "AUT-002" ||
-            error?.response?.data.code === "AUT-003" ||
-            error?.response?.data.code === "USR-001"
-          ) {
-            alert("유효한 토큰이 아닙니다. 다시 로그인 해 주세요.");
-            navigate("/login");
-            dispatch(logout());
+          if (error?.response?.data.code) {
+            dispatch(open({ errorCode: error?.response?.data.code }));
+          } else {
+            dispatch(open({ message: "오류가 발생하였습니다." }));
           }
         });
     }

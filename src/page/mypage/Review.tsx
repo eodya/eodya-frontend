@@ -1,10 +1,15 @@
-import Navigation from "../../components/common/menu/Navigation";
 import { useCallback, useState } from "react";
-import { useAppSelector } from "../../store/hooks";
-import axios from "axios";
-import ComingModal from "../../components/mypage/Modal/ComingModal";
-import ReviewPage from "../../components/mypage/ReviewPage";
+import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroller";
+import axios from "axios";
+
+import TopBar from "../../components/common/menu/TopBar";
+import Navigation from "../../components/common/menu/Navigation";
+import { ReactComponent as SettingSVG } from "../../assets/image/icon/setting.svg";
+import { ReactComponent as Vintage } from "../../assets/image/icon/vintage.svg";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import FormNickname from "../../components/mypage/FormNickname";
+import ReviewPage from "../../components/mypage/ReviewPage";
 import Spinner from "../../components/common/spinner/Spinner";
 import Information from "../../components/mypage/Information/Information";
 import Tabmenu from "../../components/mypage/TabMenu";
@@ -18,6 +23,25 @@ function Review() {
     setIsOpen(false);
   };
 
+import { open } from "../../store/features/errorModal/modalSlice";
+
+export interface RootInterface {
+  reviewTotalCount: number;
+  reviews: Review[];
+  hasNext: boolean;
+}
+
+export interface Review {
+  placeId: number;
+  reviewDate: string;
+  image: string;
+  name: string;
+  reviewContent: string;
+  placeStatus: string;
+}
+
+export default function BookMark() {
+  const dispatch = useAppDispatch();
   // user
   const { userInfo } = useAppSelector((state) => state.auth);
 
@@ -51,7 +75,7 @@ function Review() {
             <Tabmenu/>
           </div>
 
-          <div className="overflow-y-auto h-full scrollbar-hide">
+          <div className="h-full overflow-y-auto scrollbar-hide">
             <InfiniteScroll
               pageStart={0}
               loadMore={loadMore}
@@ -60,12 +84,7 @@ function Review() {
               useWindow={false}
             >
               {reivews.map((reivew, i) => (
-                <ReviewPage
-                  item={reivew}
-                  key={i}
-                  index={i}
-                  setIsOpen={setIsOpen}
-                />
+                <ReviewPage item={reivew} key={i} index={i} />
               ))}
             </InfiniteScroll>
           </div>
@@ -73,7 +92,6 @@ function Review() {
 
         <Navigation />
       </main>
-      <ComingModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 }

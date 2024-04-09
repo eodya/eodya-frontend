@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Map } from "react-kakao-maps-sdk";
 import { useDispatch } from "react-redux";
+
 import Input from "../../components/common/input/Input";
 import Navigation from "../../components/common/menu/Navigation";
 import BlossomMarker from "../../components/common/marker/BlossomMarker";
@@ -12,10 +13,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useWatchLocation } from "../../hook/mapLocation/useWatchLocation";
 import UserMarker from "../../components/common/marker/UserMarker";
 import { change as TourChange } from "../../store/features/main/tourList/openSlice";
-  
-import {
-  getMarker,
-} from "../../store/features/main/marker/markerSlice";
+import { getMarker } from "../../store/features/main/marker/markerSlice";
 import { hide } from "../../store/features/main/map/tourClick";
 import { spotHide, spotShow } from "../../store/features/main/map/spotClick";
 import SpotIntro from "../../components/main/SpotIntro";
@@ -54,16 +52,17 @@ export default function Main() {
       return alert(error.message);
     }
 
-    if(!center) return;
-    setState({center,isPanto : true});
-
-  },[]);
-  useEffect(()=>{ getPostion(); },[]);
+    if (!center) return;
+    setState({ center, isPanto: true });
+  }, []);
+  useEffect(() => {
+    getPostion();
+  }, []);
 
   // 현재 위치를 토대로 근처의 명소 가져오기
   const getTourList = () => {
     if (!userInfo) return;
-  }
+  };
 
   // 현재위치 watch
   const { location } = useWatchLocation();

@@ -54,7 +54,7 @@ export default function FormNickname() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
             {...register("displayName", { required: true })}
-            className="box-border h-[31px] w-[121px] rounded border border-gray-200 px-1 py-[6px] font-pretendard font-semibold tracking-custom outline-none"
+            className="box-border h-[31px] w-[121px] rounded border border-gray-200 px-1 py-[6px] font-semibold tracking-custom outline-none"
             type="text"
             defaultValue={userInfo?.username}
             maxLength={MAX_LENGTH}
