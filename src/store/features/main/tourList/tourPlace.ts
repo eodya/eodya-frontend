@@ -1,26 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
-export interface TourPlaceType {
-    loading : boolean
-    data : {
-        placeDetails: PlaceDetail[];
-        hasNext: boolean;
-    }
-    error : null | string
-}
-
-export interface PlaceDetail {
-    placeId: number;
-    name: string;
-    addressDetail: string;
-    placeImage: string;
-    bookmarkStatus: boolean;
-    placeStatus: string;
-}
+import { TourPlaceType } from "../../../@types/main/tourList/TourPlaceType";
 
 const initialState :TourPlaceType = {
-    loading : true,
+    loading : false,
     data : {
         placeDetails: [],
         hasNext: false
@@ -34,15 +17,15 @@ createAsyncThunk(
     async ({token,address,page} : {token : string,address:string,page:number}
 ) =>{
 
-    const response = await axios.post(`/api/v1/place/search?page=${page}&size=10`,{address : "서울"},{
+    const response = await axios.post(`/api/v1/place/search?page=${page}&size=3`,{address : "서울"},{
         headers : {
             Authorization : token,
             "Content-Type" : "application/json",
         }
     });
-
     const {data} = response;
     return data;
+
 });
 
 const tourPlace = createSlice({
@@ -52,13 +35,15 @@ const tourPlace = createSlice({
     extraReducers : (builder) => {
         builder
         .addCase(getTourPlace.pending,(state)=>{
-            state.loading = false;
+            state.loading = true;
         })
         .addCase(getTourPlace.fulfilled,(state,action)=>{
+            state.loading = false;
             state.data.placeDetails = [...state.data.placeDetails,...action.payload.placeDetails];
             state.data.hasNext = action.payload.hasNext;
         })
         .addCase(getTourPlace.rejected,(state)=>{
+            state.loading = false;
             state.error = "error01";
         })
     },

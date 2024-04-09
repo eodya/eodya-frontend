@@ -24,6 +24,7 @@ export const BookMarkBtn = ({
     e: React.MouseEvent<HTMLDListElement, MouseEvent>,
     placeId: string,
   ) => {
+    e.stopPropagation();
     if (userInfo === null) {
       alert("로그인 후 이용 가능합니다.");
       navigate("/login");

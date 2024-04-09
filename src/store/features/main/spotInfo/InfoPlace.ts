@@ -2,20 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getInfoPlace } from "../../../@types/main/spotInfo/InfoPlaceType";
 
-const initialState :getInfoPlace = {
-    loading: true,
-    info: {
-        name: "",
-        addressDetail: "",
-        image: "",
-        placeStatus: "",
-        bookmarkCount: 0,
-        bookmarkStatus: false,
-        placeId : 0
-    },
-    error: false
-};
-
 export const getPlace = createAsyncThunk("get/place",async ({token,placeId} : {token : string,placeId:number}) =>{
 
     const response = await axios.get(`/api/v1/place/detail/${placeId}`,{
@@ -28,6 +14,20 @@ export const getPlace = createAsyncThunk("get/place",async ({token,placeId} : {t
 
 });
 
+const initialState :getInfoPlace = {
+    loading: false,
+    info: {
+        name: "",
+        addressDetail: "",
+        image: "",
+        placeStatus: "",
+        bookmarkCount: 0,
+        bookmarkStatus: false,
+        placeId : 0
+    },
+    error: false
+};
+
 const InfoPlace = createSlice({
     name : "InfoPlace",
     initialState,
@@ -35,12 +35,14 @@ const InfoPlace = createSlice({
     extraReducers : (builder) => {
         builder
         .addCase(getPlace.pending,(state)=>{
-            state.loading = false;
+            state.loading = true;
         })
         .addCase(getPlace.fulfilled,(state,action)=>{
+            state.loading = false;
             state.info = action.payload;
         })
         .addCase(getPlace.rejected,(state)=>{
+            state.loading = false;
             state.error = true;
         })
     },

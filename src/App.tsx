@@ -9,11 +9,13 @@ import PrivateRoute from "./components/login/PrivateRoute";
 import PublicRoute from "./components/login/PublicRoute";
 // import SplashScreen from './components/layout/SplashScreen';
 
-import Main from "./page/main/Main";
 import LoginPage from "./page/login/Login";
 import Spinner from "./components/common/spinner/Spinner";
-import List from "./page/review/List";
 import ErrorModal from "./components/common/btn/Share/Modal/ErrorModal";
+
+const Main = lazy(()=>import("./page/main/Main"))
+const Detail = lazy(()=>import("./page/detail/Detail"))
+const ReviewList = lazy(()=>import("./page/review/List"));
 const Mypage = lazy(() => import("./page/mypage/BookMark"));
 const Review = lazy(() => import("./page/mypage/Review"));
 const NewReviewPage = lazy(() => import("./page/new/Review"));
@@ -77,14 +79,10 @@ function App() {
 
       <Routes>
         <Route element={<Layout />}>
-          <Route index element={<Main />} />
           
-          <Route
-            path="/review/:placeId"
-            element={
-              <List/>
-            }
-          />
+          <Route index element={<Main />}/>
+          <Route path="/detail/:placeId" element={<Detail/>}/>
+          <Route path="/review/:placeId" element={<ReviewList/>}/>
 
           {/* Public Routes */}
           <Route

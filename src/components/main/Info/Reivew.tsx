@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ReviewDetailList } from "../../types/review/ReviewType";
+import { ReviewDetailList } from "../../../types/review/ReviewType";
 // import { ReactComponent as More} from "../../assets/image/icon/more.svg";
 
 export const Reivew = ({

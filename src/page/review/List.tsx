@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { useAppSelector } from "../../store/hooks";
 import { ReviewDetailList, ReviewInterface } from "../../types/review/ReviewType";
-import { Reivew } from "../../components/main/Reivew";
+import { Reivew } from "../../components/main/Info/Reivew";
 import { ReactComponent as Close} from "../../assets/image/icon/close.svg";
 import InfiniteScroll from "react-infinite-scroller";
 import Spinner from "../../components/common/spinner/Spinner";

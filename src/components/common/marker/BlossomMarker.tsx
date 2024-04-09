@@ -10,7 +10,6 @@
 import {MapMarker, MapMarkerProps} from "react-kakao-maps-sdk"
 import blossom from "../../../assets/image/marker/blossom.png";
 import basic from "../../../assets/image/marker/basic.png";
-import { useEffect } from "react";
 
 // BLOSSOM 이미지
 const BLOSSOM = {

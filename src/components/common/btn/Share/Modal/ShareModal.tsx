@@ -5,6 +5,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import Facebook from "../../../../../assets/image/social/Facebook.png";
 import Band from "../../../../../assets/image/social/Band.png";
 import Twitter from "../../../../../assets/image/social/Twitter.png";
+import Kakao from "../../../../../assets/image/social/Kakao.png";
 import BandShare from "../Social/BandShare";
 import KakakoShare from "../Social/KakakoShare";
 import { SnsBox } from "../SnsBox";
@@ -48,11 +49,9 @@ export default function ShareModal({
         },
       }}
     >
-      <div className="px-5 pb-5 pt-6 text-center tracking-custom">
+      <div className="px-5 pb-5 pt-6 text-center tracking-custom font-pretendard">
         <div>
-          <h2 className="text-lg font-semibold leading-[23.4px] text-gray-950">
-            공유하기
-          </h2>
+          <h2 className="text-lg font-semibold leading-[23.4px] text-gray-950">공유하기</h2>
           <p className="mt-2 text-base font-normal leading-[20.8px] text-gray-700">
             같이 가고 싶은 친구에게
             <br />
@@ -65,7 +64,7 @@ export default function ShareModal({
               <img
                 className="absolute left-0 top-0 h-full w-full object-cover object-center"
                 src={Facebook}
-                alt=""
+                alt="페이스북 공유하기"
               />
             </SnsBox>
           </FacebookShareButton>
@@ -74,7 +73,7 @@ export default function ShareModal({
               <img
                 className="absolute left-0 top-0 h-full w-full object-cover object-center"
                 src={Band}
-                alt=""
+                alt="밴드 공유하기"
               />
             </SnsBox>
           </BandShare>
@@ -85,12 +84,18 @@ export default function ShareModal({
               <img
                 className="absolute left-0 top-0 h-full w-full object-cover object-center"
                 src={Twitter}
-                alt=""
+                alt="트위터 공유하기"
               />
             </SnsBox>
           </TwitterShareButton>
           <KakakoShare>
-            <SnsBox>Kakao</SnsBox>
+            <SnsBox>
+              <img
+                className="absolute left-0 top-0 h-full w-full object-cover object-center"
+                src={Kakao}
+                alt="카카오 공유하기"
+              />
+            </SnsBox>
           </KakakoShare>
           <CopyToClipboard text={currentUrl}>
             <button>
