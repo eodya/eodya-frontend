@@ -7,12 +7,12 @@ import TopBar from "../../components/common/menu/TopBar";
 import Navigation from "../../components/common/menu/Navigation";
 import { ReactComponent as SettingSVG } from "../../assets/image/icon/setting.svg";
 import { ReactComponent as Vintage } from "../../assets/image/icon/vintage.svg";
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import FormNickname from "../../components/mypage/FormNickname";
 import BookPage from "../../components/mypage/BookPage";
-import ComingModal from "../../components/mypage/Modal/ComingModal";
 import { useMypageTotal } from "../../hook/useMypageTotal";
 import Spinner from "../../components/common/spinner/Spinner";
+import { open } from "../../store/features/errorModal/modalSlice";
 
 export interface RootInterface {
   totalBookmarkCount: number;
@@ -31,12 +31,7 @@ export interface Bookmark {
 }
 
 export default function BookMark() {
-  // modal
-  const [isOpen, setIsOpen] = useState(false);
-  const onClose = () => {
-    setIsOpen(false);
-  };
-
+  const dispatch = useAppDispatch();
   // user
   const { userInfo } = useAppSelector((state) => state.auth);
 
@@ -73,7 +68,7 @@ export default function BookMark() {
           <div className="flex-none">
             <TopBar hide={true}>
               <SettingSVG
-                onClick={() => setIsOpen(true)}
+                onClick={() => dispatch(open({ message: "준비 중입니다." }))}
                 className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer fill-gray-800"
               />
             </TopBar>
@@ -129,7 +124,6 @@ export default function BookMark() {
 
         <Navigation />
       </main>
-      <ComingModal isOpen={isOpen} onClose={onClose} />
     </>
   );
 }
