@@ -18,12 +18,12 @@ export default function Btn({
       className={`
         ${bgColor}
         ${
-          bgColor === 'bg-primary' || bgColor === 'bg-gray-950'
-            ? 'text-white'
-            : ''
+          bgColor === "bg-primary" || bgColor === "bg-gray-950"
+            ? "text-white"
+            : ""
         }
-        w-full rounded-[10px] h-12 font-pretendard text-sm font-semibold text-center tracking-[-0.02em] leading-[14px]
-        ${className ? className : ''}
+        h-12 w-full rounded-[10px] text-center text-sm font-semibold leading-[14px] tracking-[-0.02em]
+        ${className ? className : ""}
       `}
       onClick={onClick}
       disabled={disabled}

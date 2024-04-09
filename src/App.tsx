@@ -1,8 +1,7 @@
-// import SplashScreen from './components/layout/SplashScreen';
 import { useEffect, Suspense, lazy } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { RootState } from "./store/store";
+import { useAppSelector } from "./store/hooks";
 
 import Layout from "./components/layout/Layout";
 import KakaoCallback from "./components/login/KakaoCallback";
@@ -14,6 +13,7 @@ import Main from "./page/main/Main";
 import LoginPage from "./page/login/Login";
 import Spinner from "./components/common/spinner/Spinner";
 import List from "./page/review/List";
+import ErrorModal from "./components/common/btn/Share/Modal/ErrorModal";
 const Mypage = lazy(() => import("./page/mypage/BookMark"));
 const Review = lazy(() => import("./page/mypage/Review"));
 const NewReviewPage = lazy(() => import("./page/new/Review"));
@@ -22,7 +22,12 @@ const NotFound = lazy(() => import("./page/404/NotFound"));
 
 function App() {
   // const [loading, setLoading] = useState(false);
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector(
+    (state: RootState) => state.auth.isLoggedIn,
+  );
+  const errorModalState = useAppSelector(
+    (state: RootState) => state.errorModal,
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,6 +68,13 @@ function App() {
         </div>
       }
     >
+      {errorModalState.isOpen && (
+        <ErrorModal
+          isOpen={errorModalState.isOpen}
+          message={errorModalState.message}
+        />
+      )}
+
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Main />} />

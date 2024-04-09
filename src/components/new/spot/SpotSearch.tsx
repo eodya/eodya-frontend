@@ -115,7 +115,7 @@ function SpotSearch({ isOpen, setIsOpen, setValues }: SpotSearchProps) {
 
       <form onSubmit={handleSearchSubmit} className="p-4">
         <Input
-          className="bg-gray-100"
+          className="!bg-gray-100"
           placeholder="장소를 검색해 보세요."
           onChange={handleInputChange}
           defaultValue={inputValue.trim()}
@@ -123,9 +123,9 @@ function SpotSearch({ isOpen, setIsOpen, setValues }: SpotSearchProps) {
       </form>
 
       <ul className="h-[calc(100%-134px)] overflow-y-auto px-4 scrollbar-hide">
-        {isInitialSearch == true ? (
+        {isInitialSearch === true ? (
           <div className="mt-10 text-center text-sm text-gray-500">
-            검색해 보세요.
+            {/* 검색해 보세요. */}
           </div>
         ) : searchResults && searchResults.length > 0 ? (
           searchResults.map((result, index) => (

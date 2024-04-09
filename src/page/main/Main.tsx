@@ -6,7 +6,6 @@ import BlossomMarker from "../../components/common/marker/BlossomMarker";
 import { SpotView } from "../../components/main/SpotView";
 import { MainBookMarkBtn } from "../../components/main/Btn/MainBookMarkBtn";
 import { getCurrentLocation } from "../../utils/mapLocation/getCurrentLocation";
-import { logout } from "../../store/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useWatchLocation } from "../../hook/mapLocation/useWatchLocation";
 import UserMarker from "../../components/common/marker/UserMarker";  

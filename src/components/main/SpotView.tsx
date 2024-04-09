@@ -42,8 +42,7 @@ export const SpotView = () => {
       });
 
     }
-
-  },[info])
+  }, [info]);
 
   return (
     <div
@@ -126,6 +125,41 @@ export const SpotView = () => {
           
         </div>
 
+        <div className="relative z-10 bg-gray-100">
+          <div className="flex items-center justify-between bg-white px-4 pb-5 pt-5">
+            <dl>
+              <dt className="flex items-start text-xl font-bold tracking-custom text-gray-950">
+                {info.name}{" "}
+                <div className="ml-2 inline-block leading-none">
+                  <FlowerTag placeState="개화" />
+                </div>
+              </dt>
+              <dd className="mt-2 text-sm font-normal leading-[21px]  tracking-custom">
+                {info.addressDetail}
+                {/* <span className="text-[13px] leading-none font-semibold text-info-300">820m</span> */}
+              </dd>
+            </dl>
+            <Link
+              to={`/new/review/${info.placeId}`}
+              className={`flex h-8 w-[87px] items-center justify-center rounded-full bg-primary text-xs font-semibold text-white`}
+            >
+              후기 남기기
+            </Link>
+          </div>
+
+          <div className="mt-2 bg-white px-4 py-6">
+            <p className="mb-3 text-sm font-normal tracking-custom">
+              후기{" "}
+              <span className="text-primary">
+                {review.length > 0 ? reviewTotalCount : 0}
+              </span>
+              개
+            </p>
+            {review.map((e, i) => (
+              <Reivew item={e} index={i} key={i} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

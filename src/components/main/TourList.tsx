@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ReactComponent as More} from "../../assets/image/icon/more.svg";
+import { ReactComponent as More } from "../../assets/image/icon/more.svg";
 import RankModal from "./Modal/RankModal";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { TourListLayout } from "./TourListLayout";
@@ -37,51 +37,54 @@ export function TourList(){
   }
   const onClose = ()=>{
     setIsOpen(false);
-  }
+  };
 
   // 무한 스크롤
   const [page, setPage] = useState(1);
 
-  const {data : {placeDetails : place, hasNext}} = useAppSelector((state)=>state.tourPlace);
+  const {
+    data: { placeDetails: place, hasNext },
+  } = useAppSelector((state) => state.tourPlace);
 
-  useEffect(()=>{
+  useEffect(() => {
+    if (!userInfo) return;
 
-    if(!userInfo) return;
+    dispatch(getTourPlace({ token: userInfo.token, address: "서울", page }));
+  }, [page]);
 
-    dispatch(getTourPlace({token : userInfo.token, address : "서울", page}));
-
-  },[page])
-
-  const spotViewOpen=(e : PlaceDetail)=>{
-    if(!userInfo) return;
-    dispatch(getPlace({token : userInfo.token, placeId : e.placeId}))
+  const spotViewOpen = (e: PlaceDetail) => {
+    if (!userInfo) return;
+    dispatch(getPlace({ token: userInfo.token, placeId: e.placeId }));
     dispatch(open());
-  }
+  };
 
-  const handleUp = ()=>{
-    if(!tourState.up) dispatch(upClick());
-  }
-  const handlePrev = ()=>{
-    if(tourState.up) dispatch(prevClick());
-  }
+  const handleUp = () => {
+    if (!tourState.up) dispatch(upClick());
+  };
+  const handlePrev = () => {
+    if (tourState.up) dispatch(prevClick());
+  };
 
   return (
     <>
-      <div 
+      <div
         onClick={handleUp}
         className={`bg-white rounded-t-[10px] rounded-r-[10px] pt-7 font-pretendard h-screen flex flex-col z-30 relative select-none`}
       >
-        {
-          tourState.up && 
-            <div className="flex-none"><TopBar onBack={handlePrev}></TopBar></div>
-        }
-        <div className="flex justify-between items-center px-4 flex-none">
-          <h2 className="text-xl tracking-[-0.02em] font-semibold">근처의 명소</h2>
-          <button 
-            className="flex items-center text-[13px] tracking-[-0.02em] font-medium"
+        {tourState.up && (
+          <div className="flex-none">
+            <TopBar onBack={handlePrev}></TopBar>
+          </div>
+        )}
+        <div className="flex flex-none items-center justify-between px-4">
+          <h2 className="text-xl font-semibold tracking-[-0.02em]">
+            근처의 명소
+          </h2>
+          <button
+            className="flex items-center text-[13px] font-medium tracking-[-0.02em]"
             onClick={onOpen}
           >
-            랭킹순 <More className="fill-gray-800"/>
+            랭킹순 <More className="fill-gray-800" />
           </button>
         </div>
 
@@ -92,9 +95,7 @@ export function TourList(){
         </div>
       </div>
 
-      <RankModal isOpen={isOpen} onClose={onClose}/>
-      
+      <RankModal isOpen={isOpen} onClose={onClose} />
     </>
-  )
-  
+  );
 }

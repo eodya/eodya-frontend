@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { updateUsername } from "../../store/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { updateUsername } from "../../../store/features/auth/authSlice";
 
 const MAX_LENGTH = 8;
 
@@ -54,7 +54,7 @@ export default function FormNickname() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
             {...register("displayName", { required: true })}
-            className="box-border h-[31px] w-[121px] rounded border border-gray-200 px-1 py-[6px] font-pretendard font-semibold tracking-custom outline-none"
+            className="box-border h-[31px] w-[121px] rounded border border-gray-200 px-1 py-[6px] font-semibold tracking-custom outline-none"
             type="text"
             defaultValue={userInfo?.username}
             maxLength={MAX_LENGTH}
