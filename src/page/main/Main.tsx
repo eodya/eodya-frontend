@@ -8,8 +8,6 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useWatchLocation } from "../../hook/mapLocation/useWatchLocation";
 import UserMarker from "../../components/common/marker/UserMarker";  
 import { getMarker } from "../../store/features/main/marker/markerSlice";
-import { hide } from "../../store/features/main/map/tourClick";
-import { spotHide, spotShow } from "../../store/features/main/map/spotClick";
 import { getPlace } from "../../store/features/main/spotInfo/InfoPlace";
 import { useGetPostion } from "../../hook/mapLocation/useGetPostion";
 import FlowerTag from "../../components/common/tag/FlowerTag";
@@ -18,12 +16,19 @@ import { LocationBtn } from "../../components/main/Btn/LocationBtn";
 import Tour from "../../components/main/Tour/Tour";
 import { Info } from "../../components/main/Info/Info";
 import { MainMarker } from "../../store/@types/main/marker/MarkerType";
+import TopBar from "../../components/common/menu/TopBar";
+import { changeAction } from "../../store/features/main/location/locationSlice";
 
 export default function Main() {
 
   const dispatch = useAppDispatch();
+
+  // 유저
   const { userInfo } = useAppSelector((state) => state.auth);
   
+  // location 버튼
+  const locationBtn = useAppSelector((state)=>state.location);
+
   // 북마크
   const [bookMark, setBookMark] = useState(false);
 
@@ -36,23 +41,36 @@ export default function Main() {
 
   // 지도 초기위치 설정, 포지션 가져오기
   const {state,setState,getPostion} = useGetPostion();
+  const currentHandler = ()=>{
+    dispatch(changeAction({
+      nomarl : false,
+      tour : true,
+      info : false
+    }));
+    getPostion();
+  }
 
   // 마커 클릭
   const [clickMarker,setClickMarker] = useState(0);
   const markerHanlder = (e : MainMarker)=>{
     if (!userInfo) return;
     // info 데이터
-    setClickMarker(e.placeId);
     setState({
       center : {
         lat: e.x, 
         lng: e.y
       },
       isPanto : true
-    })
-    dispatch(
+    }); // 위치 이동
+    setClickMarker(e.placeId); // 마커변동
+    dispatch( // 장소 가져오기
       getPlace({ token: userInfo.token, placeId: e.placeId }),
     );
+    dispatch(changeAction({ // 버튼 변경
+      nomarl : false,
+      tour : false,
+      info : true
+    }));
   }
 
   // 중심좌표 변경
@@ -81,7 +99,10 @@ export default function Main() {
       <main className="relative h-screen overflow-hidden">
 
         {/* 검색버튼 */}
-        <div className="absolute top-[30px] z-[51] w-full px-4">
+        <div className={`absolute z-50 w-full px-4 ${search ? "top-0" : "top-[30px]"}`}>
+          {
+            search && <TopBar onBack={()=>setSearch(false)}/>
+          }
           <Input 
             type="text" 
             placeholder="장소를 검색해 보세요"
@@ -103,7 +124,11 @@ export default function Main() {
           style={{ width: "100%", height: "100%" }}
           level={5}
           onDragStart={() => {
-
+            dispatch(changeAction({
+              nomarl : true,
+              tour : false,
+              info : false
+            }));
           }}
           onCenterChanged={onCenterChanged}
         >
@@ -134,6 +159,11 @@ export default function Main() {
               dispatch(
                 getPlace({ token: userInfo.token, placeId: 1 }),
               );
+              dispatch(changeAction({ // 버튼 변경
+                nomarl : false,
+                tour : false,
+                info : true
+              }));
             }}
             isClicked={clickMarker === 1}
           />
@@ -151,24 +181,35 @@ export default function Main() {
         </Map>
 
         {/* 마커 관련 명소 */}
-        {/* <SpotIntro getPostion={getPostion}/> */}
-
-        {/* 마커 클릭 관련 따로 만들기 */}
         
-        <div className={`absolute h-[calc(100vh-70px)] bottom-[70px] z-[60] w-full transition-transform duration-300`}>
-            <div className={`absolute bottom-full left-5 z-20 mb-5 transition-transform duration-500}`}>
-              <LocationBtn onClick={getPostion} />
+        {
+          locationBtn.nomarl &&
+            <div className="absolute bottom-[70px] left-5 mb-5 z-20">
+              <LocationBtn onClick={currentHandler} />
             </div>
-            <Tour/>
-        </div>
-       
+        }
 
-        {/* <div className={`absolute bottom-[70px] z-[60] w-full transition-transform duration-300`}>
-          <div className={`absolute bottom-full left-5 z-20 mb-5 transition-transform duration-500}`}>
-            <LocationBtn onClick={getPostion} />
-          </div>
-          <Info />
-        </div> */}
+        {
+          locationBtn.tour &&
+            <div className={`absolute translate-y-3/4 h-[calc(100vh-70px)] bottom-[70px] z-20 w-full transition-transform duration-300`}>
+              <div className={`absolute bottom-full left-5 z-20 mb-5 transition-transform duration-500}`}>
+                <LocationBtn onClick={currentHandler} />
+              </div>
+              <Tour/>
+            </div>
+        }
+
+        {
+          locationBtn.info &&
+            <div className={`absolute bottom-[70px] z-20 w-full transition-transform duration-300`}>
+              <div className={`absolute bottom-full left-5 z-20 mb-5 transition-transform duration-500}`}>
+                <LocationBtn onClick={currentHandler} />
+              </div>
+              <Info />
+            </div>
+        }
+       
+        
         
         {/* 네비게이션바 */}
         <Navigation />
@@ -176,7 +217,7 @@ export default function Main() {
       
       {
         search &&
-        <div className="bg-white absolute top-0 left-0 w-full h-full z-50 pt-[95px] tracking-custom">
+        <div className="bg-white absolute top-0 left-0 w-full h-full z-40 pt-[102px] tracking-custom">
           <div className="h-full overflow-y-auto">
             <div className="flex items-center justify-between px-4 py-5">
               <dl>
