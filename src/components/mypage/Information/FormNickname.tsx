@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { updateUsername } from "../../store/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { updateUsername } from "../../../store/features/auth/authSlice";
 
 const MAX_LENGTH = 8;
 

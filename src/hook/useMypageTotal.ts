@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../store/hooks";
+import { BookmarkType } from "../types/mypage/BookmarkType";
+import { ReviewType } from "../types/mypage/ReviewType";
 
 export const useMypageTotal = ()=>{
 
@@ -17,10 +19,8 @@ export const useMypageTotal = ()=>{
           Authorization : userInfo?.token
         }
       })
-        .then(({data} : {data : any})=>{
-  
-          setTotalBookmarkCount(data.totalBookmarkCount);
-  
+        .then(({data} : {data : BookmarkType})=>{
+          setTotalBookmarkCount(data.totalBookmarkCount);  
         })
         .catch(error => {
           console.error('Error fetching data:', error);
@@ -31,10 +31,8 @@ export const useMypageTotal = ()=>{
           Authorization : userInfo?.token
         }
       })
-        .then(({data} : {data : any})=>{
-  
-            setReviewTotalCount(data.reviewTotalCount);
-  
+        .then(({data} : {data : ReviewType})=>{
+          setReviewTotalCount(data.reviewTotalCount);
         })
         .catch(error => {
           console.error('Error fetching data:', error);

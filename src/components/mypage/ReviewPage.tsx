@@ -2,7 +2,7 @@ import { GridLayout } from "./GridLayout";
 import FlowerTag from "../common/tag/FlowerTag";
 import { Image } from "./Image";
 import { ReactComponent as HorizSVG } from "../../assets/image/icon/horiz.svg";
-import { Review } from "../../page/mypage/Review";
+import { Review } from "../../types/mypage/ReviewType";
 import { useAppDispatch } from "../../store/hooks";
 import { open } from "../../store/features/errorModal/modalSlice";
 
@@ -20,6 +20,7 @@ export default function ReviewPage({
       <p className="text-[13px] leading-none tracking-custom text-gray-300 ">
         {item.reviewDate}
       </p>
+
       <div className="relative mt-2 flex">
         <div className="relative w-[80px] flex-none">
           <div className="absolute left-0 top-0 z-10 ml-[10px] mt-[10px] leading-none">
@@ -36,6 +37,7 @@ export default function ReviewPage({
           </dd>
         </dl>
       </div>
+
       <div className="mt-2 flex justify-end text-[13px] leading-none tracking-custom text-gray-300">
         <button onClick={() => dispatch(open({ message: "준비 중입니다." }))}>
           <HorizSVG />
