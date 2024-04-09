@@ -1,19 +1,19 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import axios from 'axios';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-import Spinner from '../common/spinner/Spinner';
-import { login } from '../../store/features/auth/authSlice';
+import Spinner from "../common/spinner/Spinner";
+import { login } from "../../store/features/auth/authSlice";
+import { useAppDispatch } from "../../store/hooks";
 
 function KakaoCallback() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const params = new URL(document.location.toString()).searchParams;
-    const code = params.get('code');
-    const grantType = 'authorization_code';
+    const code = params.get("code");
+    const grantType = "authorization_code";
     const REST_API_KEY = `${process.env.REACT_APP_KAKAO_REST_API_KEY}`;
     const REDIRECT_URI = `${process.env.REACT_APP_KAKAO_REDIRECT_URL}`;
 
@@ -23,7 +23,7 @@ function KakaoCallback() {
         {},
         {
           headers: {
-            'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+            "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
           },
         },
       )
@@ -42,11 +42,11 @@ function KakaoCallback() {
             userId: res.data.userId,
           }),
         );
-        navigate('/');
+        navigate("/");
       })
       .catch((error: any) => {
         console.log(error);
-        navigate('/login');
+        navigate("/login");
       });
   }, []);
 

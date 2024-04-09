@@ -1,23 +1,30 @@
 import { useState } from "react";
-import { ReactComponent as ShareSVG} from "../../../../assets/image/icon/share.svg";
+
+import { ReactComponent as ShareSVG } from "../../../../assets/image/icon/share.svg";
 import ShareModal from "./Modal/ShareModal";
 
-export default function ShareBtn({className} : {className? : React.ReactNode}) {
+export default function ShareBtn({
+  className,
+}: {
+  className?: React.ReactNode;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
 
-  const [isOpen,setIsOpen] = useState(false);
-
-  const onOpen = ()=>{
+  const onOpen = () => {
     setIsOpen(true);
-  }
+  };
 
-  const onClose = ()=>{
+  const onClose = () => {
     setIsOpen(false);
-  }
+  };
 
   return (
     <>
-        <ShareSVG className={`fill-black cursor-pointer ${className ? className : ""}`} onClick={onOpen}/>
-        <ShareModal isOpen={isOpen} onClose={onClose}/>
+      <ShareSVG
+        className={`cursor-pointer fill-black ${className ? className : ""}`}
+        onClick={onOpen}
+      />
+      <ShareModal isOpen={isOpen} onClose={onClose} />
     </>
-  )
+  );
 }

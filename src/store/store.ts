@@ -1,8 +1,9 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import { buildGetDefaultMiddleware } from '@reduxjs/toolkit/dist/getDefaultMiddleware';
-import authSlice from './features/auth/authSlice';
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import { buildGetDefaultMiddleware } from "@reduxjs/toolkit/dist/getDefaultMiddleware";
+
+import authSlice from "./features/auth/authSlice";
 import mainMarker from "./features/main/marker/markerSlice";
 import spotViewReducer from "./features/main/spotView/slice";
 import spotInfoY from "./features/main/spotInfo/ySlice";
@@ -12,17 +13,17 @@ import InfoPlace from "./features/main/spotInfo/InfoPlace";
 import tourPlace from "./features/main/tourList/tourPlace";
 import tourClick from "./features/main/map/tourClick";
 import spotClick from "./features/main/map/spotClick";
-
+import errorModal from "./features/errorModal/modalSlice";
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
-  whitelist: ['auth'],
+  whitelist: ["auth"],
 };
 
 const rootReducer = combineReducers({
   auth: authSlice,
-  spotView : spotViewReducer,
+  spotView: spotViewReducer,
   spotInfoY,
   spotInfoOpen,
   tourOpen,
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   tourClick,
   spotClick,
   tourPlace, // 주변 명소
+  errorModal,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

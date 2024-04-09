@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import exifr from "exifr";
 
+import { useAppDispatch } from "../../store/hooks";
 import { SpotFormValuesType } from "../../types/SpotFormValuesType";
 import photo from "../../assets/image/icon/photo.svg";
 import { ReactComponent as Close } from "../../assets/image/icon/close.svg";
 import Btn from "../common/btn/Btn";
+import { open } from "../../store/features/errorModal/modalSlice";
 
 interface SpotInfoProps {
   onNext: (data: any) => void;
@@ -25,6 +27,8 @@ function SpotInfo({
   type,
   initialFormValues,
 }: SpotInfoProps) {
+  const dispatch = useAppDispatch();
+
   const { register, watch, handleSubmit, setValue } = useForm();
   const contentInput = watch("contentInput", "");
 
@@ -64,7 +68,6 @@ function SpotInfo({
               : new Date().toISOString().substring(0, 10);
 
         setImageDates(dateTaken);
-        setImagesInput([...imagesInput, file]);
 
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -103,8 +106,7 @@ function SpotInfo({
       }
     } catch (error) {
       console.error("Error reading image date: ", error);
-      // TODO: 에러 처리 로직 구현
-      alert("다른 이미지를 선택해 주세요.");
+      dispatch(open({ message: "다른 이미지를 선택해 주세요." }));
     }
   };
 

@@ -1,15 +1,16 @@
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroller";
+import axios from "axios";
+
 import TopBar from "../../components/common/menu/TopBar";
 import Navigation from "../../components/common/menu/Navigation";
 import { ReactComponent as SettingSVG } from "../../assets/image/icon/setting.svg";
-import { useCallback, useEffect, useRef, useState } from "react";
 import { ReactComponent as Vintage } from "../../assets/image/icon/vintage.svg";
 import { useAppSelector } from "../../store/hooks";
 import FormNickname from "../../components/mypage/FormNickname";
-import axios from "axios";
 import ComingModal from "../../components/mypage/Modal/ComingModal";
-import { Link } from "react-router-dom";
 import ReviewPage from "../../components/mypage/ReviewPage";
-import InfiniteScroll from "react-infinite-scroller";
 import { useMypageTotal } from "../../hook/useMypageTotal";
 import Spinner from "../../components/common/spinner/Spinner";
 
@@ -76,7 +77,7 @@ export default function BookMark() {
               />
             </TopBar>
 
-            <div className="flex items-center px-6 font-pretendard leading-none tracking-custom">
+            <div className="flex items-center px-6 leading-none tracking-custom">
               <div className="relative h-[68px] w-[68px] rounded-full bg-[#EBEBEB]">
                 <Vintage className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
               </div>
@@ -101,12 +102,16 @@ export default function BookMark() {
             </div>
           </div>
 
-          <div className="overflow-y-auto h-full scrollbar-hide">
+          <div className="h-full overflow-y-auto scrollbar-hide">
             <InfiniteScroll
               pageStart={1}
               loadMore={loadMore}
               hasMore={hasNext}
-              loader={<div className='text-center' key={0}>로딩중입니다...</div>}
+              loader={
+                <div className="text-center" key={0}>
+                  로딩 중입니다...
+                </div>
+              }
               // loader={
               //   <div className="flex h-96 w-full items-center justify-center">
               //     <Spinner />

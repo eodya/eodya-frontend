@@ -11,7 +11,7 @@ export const ListLayout = ({
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }) => {
   return (
-    <div className="bg-white p-4 font-pretendard" onClick={onClick}>
+    <div className="bg-white p-4" onClick={onClick}>
       <div className="relative">
         <div className="absolute left-[10px] top-[10px] z-20 leading-none">
           <FlowerTag placeState={item.placeStatus} />
