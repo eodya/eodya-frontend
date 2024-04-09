@@ -1,5 +1,6 @@
 import { useEffect, Suspense, lazy } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { RootState } from "./store/store";
 import { useAppSelector } from "./store/hooks";
 
@@ -58,6 +59,25 @@ function App() {
 
   return (
     <>
+      <Helmet>
+        <title>어댜!</title>
+        <meta property="og:site_name" content="어댜!" />
+        <meta property="og:title" content="어댜!" />
+        <meta name="description" content="숨은 명소를 찾아보세요." />
+        <meta
+          property="og:image"
+          content={`${process.env.PUBLIC_URL}/og_image.png`}
+        />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="어댜!" />
+        <meta name="twitter:description" content="숨은 명소를 찾아보세요." />
+        <meta
+          name="twitter:image"
+          content={`${process.env.PUBLIC_URL}/og_image.png`}
+        />
+      </Helmet>
+
       <Suspense
         fallback={
           <div
