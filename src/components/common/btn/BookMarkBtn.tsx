@@ -11,10 +11,12 @@ export const BookMarkBtn = ({
   status,
   numberHide,
   placeId,
+  fillStyle
 }: {
   status: boolean;
   numberHide?: boolean;
   placeId?: string;
+  fillStyle? : string
 }) => {
   const [bookState, setBookState] = useState(status);
   const userInfo = useAppSelector((state) => state.auth.userInfo);
@@ -56,9 +58,9 @@ export const BookMarkBtn = ({
     >
       <div className="flex h-6 w-6 items-center justify-center">
         {bookState ? (
-          <BookmarkSVG className={`fill-gray-300`} />
+          <BookmarkSVG className={`${fillStyle ? fillStyle : "fill-gray-300"}`} />
         ) : (
-          <BookmarkOutlineSVG className={`fill-gray-300`} />
+          <BookmarkOutlineSVG className={`${fillStyle ? fillStyle : "fill-gray-300"}`} />
         )}
       </div>
       {!numberHide && (

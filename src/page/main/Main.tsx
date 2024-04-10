@@ -28,6 +28,7 @@ export default function Main() {
   
   // location 버튼
   const locationBtn = useAppSelector((state)=>state.location);
+  const [tourOpen,setTourOpen] = useState(false);
 
   // 북마크
   const [bookMark, setBookMark] = useState(false);
@@ -37,7 +38,7 @@ export default function Main() {
   useEffect(() => {
     if (!userInfo) return;
     dispatch(getMarker(userInfo.token));
-  }, [bookMark, userInfo]);
+  }, [bookMark, userInfo,dispatch]);
 
   // 지도 초기위치 설정, 포지션 가져오기
   const {state,setState,getPostion} = useGetPostion();
@@ -99,23 +100,26 @@ export default function Main() {
       <main className="relative h-screen overflow-hidden">
 
         {/* 검색버튼 */}
-        <div className={`absolute z-50 w-full px-4 ${search ? "top-0" : "top-[30px]"}`}>
-          {
-            search && <TopBar onBack={()=>setSearch(false)}/>
-          }
-          <Input 
-            type="text" 
-            placeholder="장소를 검색해 보세요"
-            onClick={searchHandler}
-          />
-          {
-            !search &&
-            <MainBookMarkBtn 
-              bookMark={bookMark} 
-              setBookMark={setBookMark} 
+        {
+          !tourOpen &&
+          <div className={`absolute z-50 w-full px-4 ${search ? "top-0" : "top-[30px]"}`}>
+            {
+              search && <TopBar onBack={()=>setSearch(false)}> <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">스팟 검색</p> </TopBar>
+            }
+            <Input 
+              type="text" 
+              placeholder="장소를 검색해 보세요"
+              onClick={searchHandler}
             />
-          }
-        </div>
+            {
+              !search &&
+              <MainBookMarkBtn 
+                bookMark={bookMark} 
+                setBookMark={setBookMark} 
+              />
+            }
+          </div>
+        }
 
         {/* 맵 */}
         <Map
@@ -124,6 +128,7 @@ export default function Main() {
           style={{ width: "100%", height: "100%" }}
           level={5}
           onDragStart={() => {
+            setClickMarker(0); // 마커 클릭 초기화
             dispatch(changeAction({
               nomarl : true,
               tour : false,
@@ -191,11 +196,16 @@ export default function Main() {
 
         {
           locationBtn.tour &&
-            <div className={`absolute translate-y-3/4 h-[calc(100vh-70px)] bottom-[70px] z-20 w-full transition-transform duration-300`}>
+            <div 
+              className={`absolute ${tourOpen ? "translate-y-0" : "translate-y-3/4"} h-[calc(100vh-70px)] bottom-[70px] z-20 w-full transition-transform duration-300`}
+              onClick={()=>setTourOpen(true)}
+            >
               <div className={`absolute bottom-full left-5 z-20 mb-5 transition-transform duration-500}`}>
-                <LocationBtn onClick={currentHandler} />
+                {
+                  !tourOpen && <LocationBtn onClick={currentHandler} />
+                }
               </div>
-              <Tour/>
+              <Tour tourOpen={tourOpen} setTourOpen={setTourOpen}/>
             </div>
         }
 
@@ -209,10 +219,10 @@ export default function Main() {
             </div>
         }
        
-        
-        
         {/* 네비게이션바 */}
-        <Navigation />
+        {
+          !tourOpen && <Navigation />
+        }
       </main>
       
       {

@@ -16,6 +16,7 @@ import ErrorModal from "./components/common/btn/Share/Modal/ErrorModal";
 const Main = lazy(()=>import("./page/main/Main"))
 const Detail = lazy(()=>import("./page/detail/Detail"))
 const ReviewList = lazy(()=>import("./page/review/List"));
+const TourList = lazy(()=>import("./page/tour/List"));
 const Mypage = lazy(() => import("./page/mypage/BookMark"));
 const Review = lazy(() => import("./page/mypage/Review"));
 const NewReviewPage = lazy(() => import("./page/new/Review"));
@@ -83,6 +84,7 @@ function App() {
           <Route index element={<Main />}/>
           <Route path="/detail/:placeId" element={<Detail/>}/>
           <Route path="/review/:placeId" element={<ReviewList/>}/>
+          <Route path="/tour" element={<TourList/>}/>
 
           {/* Public Routes */}
           <Route

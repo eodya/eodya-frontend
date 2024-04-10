@@ -6,7 +6,7 @@ import { ReviewDetailList, ReviewInterface } from "../../types/review/ReviewType
 import TopBar from "../../components/common/menu/TopBar";
 import ShareBtn from "../../components/common/btn/Share/ShareBtn";
 import FlowerTag from "../../components/common/tag/FlowerTag";
-import { Reivew } from "../../components/main/Info/Reivew";
+import ReivewList from "../../components/review/List";
 import { BookMarkBtn } from "../../components/common/btn/BookMarkBtn";
 import { getPlace } from "../../store/features/main/spotInfo/InfoPlace";
 
@@ -47,7 +47,7 @@ function Detail() {
             });
 
         }
-    }, [placeId,userInfo]);
+    }, [placeId,userInfo,dispatch]);
 
     return (
         <div
@@ -63,7 +63,12 @@ function Detail() {
                     }}
                 >
                     <nav className="absolute right-4 top-1/2 flex -translate-y-1/2">
-                        <BookMarkBtn placeId={info.placeId.toString()} status={info.bookmarkStatus} />
+                        <BookMarkBtn 
+                            placeId={info.placeId.toString()} 
+                            status={info.bookmarkStatus}
+                            numberHide={true}
+                            fillStyle="fill-white"
+                        />
                         <ShareBtn className="ml-2 fill-white" />
                     </nav>
                 </TopBar>
@@ -96,7 +101,7 @@ function Detail() {
                         </p>
                         {
                             review.map((e,i)=>
-                                <Reivew item={e} index={i} key={i} />
+                                <ReivewList item={e} index={i} key={i} />
                             )
                         }
                         {
