@@ -64,7 +64,7 @@ function ErrorModal({ isOpen, message }: ErrorModalProps) {
       }}
     >
       <div className="font-pretendard tracking-custom">
-        <div className="flex flex-col items-center justify-center gap-2 py-6">
+        <div className="flex flex-col items-center justify-center gap-2 px-6 py-6">
           <img src={error} alt="에러 아이콘" />
           {message}
         </div>

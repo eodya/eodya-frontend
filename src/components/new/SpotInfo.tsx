@@ -80,17 +80,31 @@ function SpotInfo({
           img.src = e.target.result as string;
 
           img.onload = () => {
+            let width = img.width;
+            let height = img.height;
+            const maxSide = Math.max(width, height);
+
+            // 이미지의 최대 크기 조정
+            if (maxSide > 1000) {
+              const scaleFactor = 1000 / maxSide;
+              width *= scaleFactor;
+              height *= scaleFactor;
+            }
+
             const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
             const ctx = canvas.getContext("2d");
-            canvas.width = img.width;
-            canvas.height = img.height;
+
             if (!ctx) {
               console.error(
                 "Canvas에서 2D 컨텍스트를 가져오는 데 실패했습니다.",
               );
               return;
             }
-            ctx.drawImage(img, 0, 0);
+
+            // 리사이징된 이미지를 캔버스에 그림
+            ctx.drawImage(img, 0, 0, width, height);
 
             canvas.toBlob((blob) => {
               if (!blob) return;
@@ -101,12 +115,22 @@ function SpotInfo({
               setImagesInput([...imagesInput, webpImage]);
             }, "image/webp");
           };
+          img.onerror = () => {
+            throw new Error("이미지를 로드하는 데 실패했습니다.");
+          };
+        };
+        reader.onerror = () => {
+          throw new Error("FileReader가 이미지를 읽는 데 실패했습니다.");
         };
         reader.readAsDataURL(file);
       }
     } catch (error) {
       console.error("Error reading image date: ", error);
-      dispatch(open({ message: "다른 이미지를 선택해 주세요." }));
+      dispatch(
+        open({
+          message: "이미지 처리 중 오류가 발생했습니다. 다시 시도해 주세요.",
+        }),
+      );
     }
   };
 
