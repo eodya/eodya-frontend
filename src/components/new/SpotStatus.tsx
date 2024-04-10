@@ -27,88 +27,71 @@ function SpotStatus({ onNext, name, address }: SpotStatusProps) {
 
   return (
     <div className="flex h-full flex-col justify-between p-4">
-      <div>
-        <div className="h-[104px] border-b border-gray-200 pt-3">
-          <div className="mb-1">
-            <p className="font-bold">{name}</p>
-          </div>
-          <div className="flex flex-col gap-0.5">
-            <span className="text-sm">{address}</span>
-            <span className="text-[13px] font-semibold text-primary"></span>
-          </div>
+      <div className="flex h-[calc(100%-72px)] flex-col justify-center">
+        <div className="text-center">
+          <p className="mb-2 text-lg font-semibold leading-6">
+            <span className="text-primary">{name}</span>의<br />꽃 상태는
+            어땠나요?
+          </p>
+          <span className="text-sm">현재 상태를 알려 주세요!</span>
         </div>
 
-        <div className="pt-[80px]">
-          <div>
-            <p className="mb-2 text-lg font-semibold">
-              {name}의<br />꽃 상태는 어땠나요?
+        <div className="mt-[60px] flex justify-center gap-10">
+          <div
+            className="flex cursor-pointer flex-col items-center justify-center gap-4"
+            onClick={() => handleStatusChange("BLOOMING")}
+          >
+            <div className="flex h-[74px] w-[74px] items-center justify-center rounded-full">
+              <img
+                src={
+                  status === "BLOOMING" ? state_blooming : state_not_selected
+                }
+                alt="개화"
+              />
+            </div>
+            <p
+              className={`${status === "BLOOMING" && "font-bold text-primary"} text-sm text-gray-200`}
+            >
+              개화
             </p>
-            <span className="text-sm">
-              이후 찾아올 분들을 위해
-              <br />
-              현재 꽃 상태를 알려 주세요!
-            </span>
           </div>
-
-          <div className="mt-[60px] flex justify-center gap-10">
-            <div
-              className="flex cursor-pointer flex-col items-center justify-center gap-4"
-              onClick={() => handleStatusChange("BLOOMING")}
-            >
-              <div className="flex h-[74px] w-[74px] items-center justify-center rounded-full">
-                <img
-                  src={
-                    status === "BLOOMING" ? state_blooming : state_not_selected
-                  }
-                  alt="개화"
-                />
-              </div>
-              <p
-                className={`${status === "BLOOMING" && "font-bold text-primary"} text-sm text-gray-200`}
-              >
-                개화
-              </p>
+          <div
+            className="flex w-[85px] cursor-pointer flex-col items-center justify-center gap-4"
+            onClick={() => handleStatusChange("FULL_BLOOM")}
+          >
+            <div className="flex h-[74px] w-[74px] items-center justify-center rounded-full">
+              <img
+                src={
+                  status === "FULL_BLOOM"
+                    ? state_full_bloom
+                    : state_not_selected_full
+                }
+                alt="만개"
+              />
             </div>
-            <div
-              className="flex w-[85px] cursor-pointer flex-col items-center justify-center gap-4"
-              onClick={() => handleStatusChange("FULL_BLOOM")}
+            <p
+              className={`${status === "FULL_BLOOM" && "font-bold text-primary"} text-sm text-gray-200`}
             >
-              <div className="flex h-[74px] w-[74px] items-center justify-center rounded-full">
-                <img
-                  src={
-                    status === "FULL_BLOOM"
-                      ? state_full_bloom
-                      : state_not_selected_full
-                  }
-                  alt="만개"
-                />
-              </div>
-              <p
-                className={`${status === "FULL_BLOOM" && "font-bold text-primary"} text-sm text-gray-200`}
-              >
-                만개
-              </p>
+              만개
+            </p>
+          </div>
+          <div
+            className="flex w-[85px] cursor-pointer flex-col items-center justify-center gap-4"
+            onClick={() => handleStatusChange("NEXT_YEAR")}
+          >
+            <div className="flex h-[74px] w-[74px] items-center justify-center rounded-full">
+              <img
+                src={
+                  status === "NEXT_YEAR" ? state_next_year : state_not_selected
+                }
+                alt="내년에 만나요"
+              />
             </div>
-            <div
-              className="flex w-[85px] cursor-pointer flex-col items-center justify-center gap-4"
-              onClick={() => handleStatusChange("NEXT_YEAR")}
+            <p
+              className={`${status === "NEXT_YEAR" && "font-bold text-gray-950"} text-sm text-gray-200`}
             >
-              <div className="flex h-[74px] w-[74px] items-center justify-center rounded-full">
-                <img
-                  src={
-                    status === "NEXT_YEAR"
-                      ? state_next_year
-                      : state_not_selected
-                  }
-                  alt="내년에 만나요"
-                />
-              </div>
-              <p
-                className={`${status === "NEXT_YEAR" && "font-bold text-gray-950"} text-sm text-gray-200`}
-              >
-                내년에 만나요
-              </p>
-            </div>
+              내년에 만나요
+            </p>
           </div>
         </div>
       </div>

@@ -105,14 +105,7 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route
-            path="/new/spot"
-            element={
-              <PrivateRoute>
-                <NewSpotPage />
-              </PrivateRoute>
-            }
-          />
+          <Route path="/new/spot" element={<NewSpotPage />} />
           <Route
             path="/mypage"
             element={

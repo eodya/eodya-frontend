@@ -69,41 +69,41 @@ function NewSpotPage() {
     }));
   };
 
-  useEffect(() => {
-    if (formValues.placeStatus) {
-      const formData = new FormData();
+  // useEffect(() => {
+  //   if (formValues.placeStatus) {
+  //     const formData = new FormData();
 
-      for (const key in formValues) {
-        if (key === "images" && Array.isArray(formValues[key])) {
-          formValues[key].forEach((file) => {
-            formData.append(key, file);
-          });
-        } else {
-          formData.append(key, String(formValues[key]));
-        }
-      }
+  //     for (const key in formValues) {
+  //       if (key === "images" && Array.isArray(formValues[key])) {
+  //         formValues[key].forEach((file) => {
+  //           formData.append(key, file);
+  //         });
+  //       } else {
+  //         formData.append(key, String(formValues[key]));
+  //       }
+  //     }
 
-      axios
-        .post(`/api/v1/place`, formData, {
-          headers: {
-            Authorization: `${userInfo?.token}`,
-          },
-        })
-        .then((res: any) => {
-          setStep((prev) => prev + 1);
-        })
-        .catch((error: any) => {
-          console.log(error);
-          if (error?.response?.data.code) {
-            dispatch(open({ errorCode: error?.response?.data.code }));
-          } else {
-            dispatch(open({ message: "오류가 발생하였습니다." }));
-          }
-        });
-    }
-  }, [formValues.placeStatus]);
+  //     axios
+  //       .post(`/api/v1/place`, formData, {
+  //         headers: {
+  //           Authorization: `${userInfo?.token}`,
+  //         },
+  //       })
+  //       .then((res: any) => {
+  //         setStep((prev) => prev + 1);
+  //       })
+  //       .catch((error: any) => {
+  //         console.log(error);
+  //         if (error?.response?.data.code) {
+  //           dispatch(open({ errorCode: error?.response?.data.code }));
+  //         } else {
+  //           dispatch(open({ message: "오류가 발생하였습니다." }));
+  //         }
+  //       });
+  //   }
+  // }, [formValues.placeStatus]);
 
-  if (!userInfo) return null;
+  // if (!userInfo) return null;
 
   return (
     <main className="h-dvh w-full">
