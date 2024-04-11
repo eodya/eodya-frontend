@@ -20,6 +20,7 @@ import TopBar from "../../components/common/menu/TopBar";
 import { changeAction } from "../../store/features/main/location/locationSlice";
 import Search from "../../components/main/Search/Search";
 import { searchAction } from "../../store/features/main/search/searchSlice";
+import BookMarker from "../../components/common/marker/BookMarker";
 
 export default function Main() {
 
@@ -214,6 +215,30 @@ export default function Main() {
               }));
             }}
             isClicked={clickMarker === 1}
+          />
+
+          <BookMarker
+            position={{ lat: 37.591602151002315, lng: 126.69745010724675 }}
+            onClick={() => {
+              if (!userInfo) return;
+              // info 데이터
+              setClickMarker(1);
+              setState({
+                center : {
+                  lat: 37.581602151002315, 
+                  lng: 126.69745010724675
+                },
+                isPanto : true
+              });
+              dispatch(
+                getPlace({ token: userInfo.token, placeId: 1 }),
+              );
+              dispatch(changeAction({ // 버튼 변경
+                nomarl : false,
+                tour : false,
+                info : true
+              }));
+            }}
           />
 
           {/* 유저 마커 */}

@@ -9,11 +9,26 @@
 
 import {MapMarker, MapMarkerProps} from "react-kakao-maps-sdk"
 import blossom from "../../../assets/image/marker/blossom.png";
-import basic from "../../../assets/image/marker/basic.png";
+import blossomClick from "../../../assets/image/marker/blossom_click.png";
 
 // BLOSSOM 이미지
 const BLOSSOM = {
   src : blossom,
+  size : {
+    width : 24,
+    height : 28
+  },
+  options: {
+    offset: {
+        x: 24,
+        y: 28,
+    }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+  }
+}
+
+// 기본 이미지
+const NORMAL = {
+  src : blossomClick,
   size : {
     width : 26,
     height : 36
@@ -22,21 +37,6 @@ const BLOSSOM = {
     offset: {
         x: 26,
         y: 36,
-    }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-  }
-}
-
-// 기본 이미지
-const NORMAL = {
-  src : basic,
-  size : {
-    width : 34,
-    height : 48.6
-  },
-  options: {
-    offset: {
-        x: 34,
-        y: 48.6,
     }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
   }
 }
