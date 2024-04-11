@@ -66,7 +66,8 @@ function Tour({tourOpen,setTourOpen} : {tourOpen : boolean,setTourOpen :React.Di
   return (
     <>
       <div
-        className={`bg-white rounded-t-[10px] rounded-r-[10px] font-pretendard h-screen flex flex-col z-30 relative select-none pt-5`}
+        onClick={()=>setTourOpen(true)}
+        className={`bg-white rounded-t-[10px] rounded-r-[10px] font-pretendard h-screen flex flex-col z-30 relative select-none ${tourOpen ? "" : "pt-5"}`}
       >
         {
           tourOpen &&
@@ -75,7 +76,7 @@ function Tour({tourOpen,setTourOpen} : {tourOpen : boolean,setTourOpen :React.Di
             </div>
         }
 
-        <div className="flex flex-none items-center justify-between px-4">
+        <div className={`flex flex-none items-center justify-between px-4 ${tourOpen ? "pb-2" : ""}`}>
           <h2 className="text-xl font-semibold tracking-[-0.02em]">
             근처의 명소
           </h2>

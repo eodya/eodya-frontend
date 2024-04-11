@@ -36,11 +36,9 @@ function Detail() {
                 }
             })
             .then(({data} : {data : ReviewInterface})=>{
-
                 setReviewTotalCount(data.reviewTotalCount);
                 setReview(data.reviewDetailList);
                 setHasNext(data.hasNext);
-        
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -82,7 +80,7 @@ function Detail() {
                     <div className="flex items-center justify-between bg-white px-4 pb-5 pt-5">
                         <dl>
                             <dt className="text-xl font-bold text-gray-950 tracking-custom flex items-start">
-                                {info.name} <div className="ml-2 inline-block leading-none"><FlowerTag placeState="개화"/></div>
+                                {info.name} <div className="ml-2 inline-block leading-none"><FlowerTag placeState={info.placeStatus}/></div>
                             </dt>
                             <dd className="mt-2 tracking-custom font-normal text-sm  leading-[21px]">
                                 {info.addressDetail} 
@@ -91,7 +89,7 @@ function Detail() {
                         </dl>
                         <Link 
                             to={`/new/review/${info.placeId}`} 
-                            className={`bg-primary text-white w-[87px] h-8 flex items-center justify-center text-xs font-semibold rounded-full`}
+                            className={`bg-primary text-white w-[87px] h-10 flex items-center justify-center text-xs font-semibold rounded-full`}
                         >후기 남기기</Link>
                     </div>
 

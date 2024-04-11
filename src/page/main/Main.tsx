@@ -102,22 +102,25 @@ export default function Main() {
         {/* 검색버튼 */}
         {
           !tourOpen &&
-          <div className={`absolute z-50 w-full px-4 ${search ? "top-0" : "top-[30px]"}`}>
+          <div className={`absolute z-50 w-full ${search ? "top-0" : "top-[30px]"}`}>
             {
-              search && <TopBar onBack={()=>setSearch(false)}> <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">스팟 검색</p> </TopBar>
+              search && <TopBar onBack={()=>setSearch(false)}> <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">검색</p> </TopBar>
             }
-            <Input 
-              type="text" 
-              placeholder="장소를 검색해 보세요"
-              onClick={searchHandler}
-            />
-            {
-              !search &&
-              <MainBookMarkBtn 
-                bookMark={bookMark} 
-                setBookMark={setBookMark} 
+            <div className="px-4">
+              <Input 
+                type="text" 
+                placeholder="장소를 검색해 보세요"
+                onClick={searchHandler}
+                className={`${search ? "!bg-gray-100" : ""}`}
               />
-            }
+              {
+                !search &&
+                <MainBookMarkBtn 
+                  bookMark={bookMark} 
+                  setBookMark={setBookMark} 
+                />
+              }
+            </div>
           </div>
         }
 
@@ -198,7 +201,6 @@ export default function Main() {
           locationBtn.tour &&
             <div 
               className={`absolute ${tourOpen ? "translate-y-0" : "translate-y-3/4"} h-[calc(100vh-70px)] bottom-[70px] z-20 w-full transition-transform duration-300`}
-              onClick={()=>setTourOpen(true)}
             >
               <div className={`absolute bottom-full left-5 z-20 mb-5 transition-transform duration-500}`}>
                 {
