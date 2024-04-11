@@ -46,6 +46,8 @@ export function Info(){
               {/* <p className="text-[13px] mt-1 leading-[13px] text-info-300 font-semibold">820m</p> */}
             </div>
             <BookMarkBtn 
+              fillStyle="fill-primary"
+              textStyle="text-primary"
               placeId={info.placeId.toString()} 
               status={info.bookmarkStatus} 
             />

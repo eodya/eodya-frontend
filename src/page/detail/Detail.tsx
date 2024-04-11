@@ -102,6 +102,57 @@ function Detail() {
                                 <ReivewList item={e} index={i} key={i} />
                             )
                         }
+                        
+                        {/* 
+                            테스트
+                            <div className={`tracking-custom`}>
+
+                                <div className={`mt-2 grid w-[calc(100%-56px)] grid-cols-2 gap-1 overflow-hidden rounded-lg`}>
+                                    <div className={`relative w-full after:block after:pb-[100%] after:content-['']`}>
+                                        <img
+                                            className={`absolute left-0 top-0 h-full w-full object-cover object-center`}
+                                            src={'https://picsum.photos/200'}
+                                            alt={`리뷰 이미지`}
+                                        />
+                                    </div>
+                                    <div className={`relative w-full after:block after:pb-[100%] after:content-['']`}>
+                                        <img
+                                            className={`absolute left-0 top-0 h-full w-full object-cover object-center`}
+                                            src={'https://picsum.photos/200'}
+                                            alt={`리뷰 이미지`}
+                                        />
+                                    </div>
+                                </div>
+                                <p className={`mt-2 text-sm leading-[21px] text-gray-900`}>
+                                    지금이 딱 피크인 것 같아요!! 가서 인생샷 찍고 왔습니다!
+                                </p>
+                                <p className="text-[13px] mt-[3px] leading-none text-gray-300">
+                                    2024.04.18
+                                </p>
+                            
+                            </div>
+
+                            <div className={`mt-5 border-t border-t-gray-100 pt-5 tracking-custom`}>
+
+                                <div className={`mt-2 grid w-[calc(100%-56px)] grid-cols-2 gap-1 overflow-hidden rounded-lg`}>
+                                    <div className={`relative w-full after:block after:pb-[100%] after:content-['']`}>
+                                        <img
+                                            className={`absolute left-0 top-0 h-full w-full rounded-lg object-cover object-center`}
+                                            src={'https://picsum.photos/200'}
+                                            alt={`리뷰 이미지`}
+                                        />
+                                    </div>
+                                </div>
+                                <p className={`mt-2 text-sm leading-[21px] text-gray-900`}>
+                                    지금이 딱 피크인 것 같아요!! 가서 인생샷 찍고 왔습니다!
+                                </p>
+                                <p className="text-[13px] mt-[3px] leading-none text-gray-300">
+                                    2024.04.18
+                                </p>
+                            
+                            </div>
+                        */}
+
                         {
                             hasNext && 
                                 <Link 

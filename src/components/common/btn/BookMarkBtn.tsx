@@ -11,12 +11,14 @@ export const BookMarkBtn = ({
   status,
   numberHide,
   placeId,
-  fillStyle
+  fillStyle,
+  textStyle
 }: {
   status: boolean;
   numberHide?: boolean;
   placeId?: string;
-  fillStyle? : string
+  fillStyle? : string;
+  textStyle? : string
 }) => {
   const [bookState, setBookState] = useState(status);
   const userInfo = useAppSelector((state) => state.auth.userInfo);
@@ -64,7 +66,7 @@ export const BookMarkBtn = ({
         )}
       </div>
       {!numberHide && (
-        <p className="text-[13px] font-medium leading-[13px] tracking-custom text-gray-300">
+        <p className={`text-[13px] font-medium leading-[13px] tracking-custom ${textStyle ? textStyle : "text-gray-300"}`}>
           10
         </p>
       )}

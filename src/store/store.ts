@@ -9,6 +9,7 @@ import spotInfoOpen from "./features/main/spotInfo/InfoSlice";
 import InfoPlace from "./features/main/spotInfo/InfoPlace";
 import errorModal from "./features/errorModal/modalSlice";
 import location from "./features/main/location/locationSlice";
+import search from "./features/main/search/searchSlice";
 
 const persistConfig = {
   key: "root",
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   InfoPlace,
   location,
   errorModal,
+  search
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

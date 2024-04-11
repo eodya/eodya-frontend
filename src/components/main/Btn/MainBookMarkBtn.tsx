@@ -13,7 +13,7 @@ export const MainBookMarkBtn = ({bookMark,setBookMark} : {bookMark : boolean, se
       onClick={onClick} 
       className={`w-10 h-10 rounded-lg mt-3 flex items-center justify-center ${bookMark ? "bg-primary" : "bg-white"}`}
     >
-      <BookmarkSVG className={`${bookMark ? "fill-white" : "fill-primary"}`}/>
+      <BookmarkSVG className={`${bookMark ? "fill-white" : "fill-gray-300"}`}/>
     </button>
   )
   

@@ -18,6 +18,8 @@ import { Info } from "../../components/main/Info/Info";
 import { MainMarker } from "../../store/@types/main/marker/MarkerType";
 import TopBar from "../../components/common/menu/TopBar";
 import { changeAction } from "../../store/features/main/location/locationSlice";
+import Search from "../../components/main/Search/Search";
+import { searchAction } from "../../store/features/main/search/searchSlice";
 
 export default function Main() {
 
@@ -90,9 +92,43 @@ export default function Main() {
   const { location } = useWatchLocation();
 
   // 검색기능
+  const data = [
+      {
+          "placeId": 1,
+          "x": 13.0,
+          "y": 14.0,
+          "name": "애기능 동산",
+          "addressDetail": "서울 성북구 12",
+          "placeStatus": "BLOOMING",
+      },        
+      {
+          "placeId": 1,
+          "x": 13.0,
+          "y": 14.0,
+          "name": "애기능 동산2",
+          "addressDetail": "인천 서구 12",
+          "placeStatus": "FULL_BLOOM",
+      },        
+      {
+          "placeId": 1,
+          "x": 13.0,
+          "y": 14.0,
+          "name": "애기능 동산3",
+          "addressDetail": "인천 불구 12",
+          "placeStatus": "NEXT_YEAR",
+      },        
+  ]
+  const [searchInput,setSearchInput] = useState('');
   const [search,setSearch] = useState(false);
   const searchHandler = ()=>{
     setSearch(true);
+  }
+  const searchChangeHandler : React.ChangeEventHandler<HTMLInputElement> = (e)=>{
+    setSearchInput(e.target.value);
+  }
+  const searchSubmitHanlder : React.FormEventHandler<HTMLFormElement> = (e)=>{
+    e.preventDefault();
+    dispatch(searchAction({data,searchInput}));
   }
 
   return (
@@ -107,12 +143,16 @@ export default function Main() {
               search && <TopBar onBack={()=>setSearch(false)}> <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">검색</p> </TopBar>
             }
             <div className="px-4">
-              <Input 
-                type="text" 
-                placeholder="장소를 검색해 보세요"
-                onClick={searchHandler}
-                className={`${search ? "!bg-gray-100" : ""}`}
-              />
+              <form onSubmit={searchSubmitHanlder}>
+                <Input 
+                  defaultValue={searchInput}
+                  type="text" 
+                  placeholder="장소를 검색해 보세요"
+                  onClick={searchHandler}
+                  className={`${search ? "!bg-gray-100" : ""}`}
+                  onChange={searchChangeHandler}
+                />
+              </form>
               {
                 !search &&
                 <MainBookMarkBtn 
@@ -229,25 +269,7 @@ export default function Main() {
       
       {
         search &&
-        <div className="bg-white absolute top-0 left-0 w-full h-full z-40 pt-[102px] tracking-custom">
-          <div className="h-full overflow-y-auto">
-            <div className="flex items-center justify-between px-4 py-5">
-              <dl>
-                <dt className="flex">
-                  <h4 className="mr-2 font-bold">애기능 동산</h4>
-                  <div className="flex-none">
-                    <FlowerTag placeState="BLOOMING"/>
-                  </div>
-                </dt>
-                <dd className="mt-2">서울 성북구 안암로 73-15</dd>
-              </dl>
-              <Link 
-                className="w-[87px] h-8 rounded-full bg-primary flex items-center justify-center text-xs leading-none font-semibold text-white flex-none ml-3"
-                to={'/new/review/0'}
-              >후기 남기기</Link>
-            </div>
-          </div>
-        </div>
+          <Search/>
       }
 
     </>

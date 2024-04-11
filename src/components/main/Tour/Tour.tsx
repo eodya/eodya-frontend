@@ -7,6 +7,8 @@ import { PlaceDetail } from "../../../store/@types/main/tourList/TourPlaceType";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import List from "./List";
+import { BookMarkBtn } from "../../common/btn/BookMarkBtn";
+import FlowerTag from "../../common/tag/FlowerTag";
 
 interface TourType {
   placeDetails: PlaceDetail[];
@@ -93,6 +95,39 @@ function Tour({tourOpen,setTourOpen} : {tourOpen : boolean,setTourOpen :React.Di
             {
               placeDetails.map((e,i)=><List onClick={()=>tourClickHandler(e)} item={e} key={i} />)
             }
+            {/* {
+              // 테스트
+              <div className="bg-white p-4 cursor-pointer">
+                <div className="relative">
+                  <div className="absolute left-[10px] top-[10px] z-20 leading-none">
+                    <FlowerTag placeState={"BLOOMING"} />
+                  </div>
+                  <div
+                    className={`grid grid-cols-1 gap-1 overflow-hidden rounded-lg`}
+                  >
+                    <div className="relative h-40 w-full">
+                      <img
+                        className="absolute left-0 top-0 h-full w-full object-cover object-center"
+                        src={"https://picsum.photos/200"}
+                        alt={`이미지`}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-3 flex items-start justify-between">
+                  <div className="leading-none tracking-custom">
+                    <dl>
+                      <dt className="text-base font-bold text-gray-950">테스트</dt>
+                      <dd className="mt-1 text-sm font-normal leading-[21px]">
+                        테스트입니다.
+                      </dd>
+                    </dl>
+                  </div>
+                  <BookMarkBtn textStyle="text-primary" fillStyle="fill-primary" placeId={String(1)} status={true} />
+                </div>
+              </div>
+            } */}
             {
               hasNext &&
                 <Link 

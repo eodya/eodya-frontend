@@ -39,7 +39,7 @@ const List = ({
           </dl>
           {/* <p className="text-[13px] mt-1 leading-[13px] text-info-300 font-semibold">820m</p> */}
         </div>
-        <BookMarkBtn placeId={String(item.placeId)} status={item.bookmarkStatus} />
+        <BookMarkBtn textStyle="text-primary" fillStyle="fill-primary" placeId={String(item.placeId)} status={item.bookmarkStatus} />
       </div>
     </div>
   );
