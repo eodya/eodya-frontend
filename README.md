@@ -1,5 +1,3 @@
-# 어댜
-
 <p align="center">
     <img src="https://github.com/eodya/eodya-frontend/assets/62260343/0f2c20ac-fd64-46d0-9c23-13359cf975ef">
 </p>
