@@ -1,21 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
 import { Map } from "react-kakao-maps-sdk";
-import { useDispatch } from "react-redux";
+
 import Input from "../../components/common/input/Input";
 import Navigation from "../../components/common/menu/Navigation";
 import BlossomMarker from "../../components/common/marker/BlossomMarker";
 import { SpotView } from "../../components/main/SpotView";
 import { MainBookMarkBtn } from "../../components/main/Btn/MainBookMarkBtn";
 import { getCurrentLocation } from "../../utils/mapLocation/getCurrentLocation";
-import { logout } from "../../store/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useWatchLocation } from "../../hook/mapLocation/useWatchLocation";
 import UserMarker from "../../components/common/marker/UserMarker";
 import { change as TourChange } from "../../store/features/main/tourList/openSlice";
-  
-import {
-  getMarker,
-} from "../../store/features/main/marker/markerSlice";
+import { getMarker } from "../../store/features/main/marker/markerSlice";
 import { hide } from "../../store/features/main/map/tourClick";
 import { spotHide, spotShow } from "../../store/features/main/map/spotClick";
 import SpotIntro from "../../components/main/SpotIntro";
@@ -54,16 +50,17 @@ export default function Main() {
       return alert(error.message);
     }
 
-    if(!center) return;
-    setState({center,isPanto : true});
-
-  },[]);
-  useEffect(()=>{ getPostion(); },[]);
+    if (!center) return;
+    setState({ center, isPanto: true });
+  }, []);
+  useEffect(() => {
+    getPostion();
+  }, []);
 
   // 현재 위치를 토대로 근처의 명소 가져오기
   const getTourList = () => {
     if (!userInfo) return;
-  }
+  };
 
   // 현재위치 watch
   const { location } = useWatchLocation();
@@ -75,13 +72,6 @@ export default function Main() {
         <div className="absolute top-[30px] z-50 w-full px-4">
           <Input type="text" placeholder="장소를 검색해 보세요" />
           <MainBookMarkBtn bookMark={bookMark} setBookMark={setBookMark} />
-          {/* 임시 로그아웃 버튼 */}
-          <button
-            onClick={() => dispatch(logout())}
-            className="m-2 bg-white p-2"
-          >
-            로그아웃
-          </button>
         </div>
 
         {/* 맵 */}

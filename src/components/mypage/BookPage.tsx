@@ -2,7 +2,7 @@ import { GridLayout } from './GridLayout'
 import FlowerTag from '../common/tag/FlowerTag'
 import { Image } from './Image'
 import { BookMarkBtn } from '../common/btn/BookMarkBtn'
-import { Bookmark } from '../../page/mypage/BookMark'
+import { Bookmark } from '../../types/mypage/BookmarkType'
 
 export default function BookPage({item,index}:{item :Bookmark,index : number}) {
 

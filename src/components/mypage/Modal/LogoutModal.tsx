@@ -1,6 +1,10 @@
 import Modal from "react-modal";
+import { useAppDispatch } from "../../../store/hooks";
+import { logout } from "../../../store/features/auth/authSlice";
 
-export default function ComingModal({isOpen,onClose} : {isOpen : boolean, onClose : any}) {
+export default function LogoutModal({isOpen,onClose} : {isOpen : boolean, onClose : any}) {
+
+    const dispatch = useAppDispatch();
 
     const handleClose = ()=>{
         onClose();
@@ -34,9 +38,18 @@ export default function ComingModal({isOpen,onClose} : {isOpen : boolean, onClos
         >
             <div className="font-pretendard tracking-custom leading-none h-full">
               <div className='h-[82px] flex items-center justify-center text-base font-normal leading-[20.8px]'>
-                준비중 입니다.
+                로그아웃 하시겠습니까?
               </div>
-              <button className='h-11 flex items-center justify-center w-full border-t border-gray-100' onClick={handleClose}>확인</button>
+              <div className="flex">
+                <button 
+                    className='h-11 flex items-center justify-center w-full border-t border-gray-100 text-error-300' 
+                    onClick={handleClose}
+                >취소</button>
+                <button 
+                    className='h-11 flex items-center justify-center w-full border-t border-gray-100' 
+                    onClick={()=>dispatch(logout())}
+                >확인</button>
+              </div>
             </div>
         </Modal>
     )

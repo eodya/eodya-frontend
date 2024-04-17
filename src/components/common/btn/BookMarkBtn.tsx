@@ -50,7 +50,7 @@ export const BookMarkBtn = ({
 
   return (
     <dl
-      className="cursor-pointer text-center font-pretendard"
+      className="cursor-pointer text-center"
       onClick={(e) => onClick(e, placeId || "")}
     >
       <div className="flex h-6 w-6 items-center justify-center">
