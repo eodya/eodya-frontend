@@ -29,7 +29,7 @@ export default function Navigation({
 
   return (
     <nav
-      className={`absolute bottom-0 z-50 flex h-[70px] w-full justify-between bg-white text-center text-[11px] font-semibold ${className ? className : ""}`}
+      className={`absolute bottom-0 z-30 flex h-[70px] w-full justify-between bg-white text-center text-[11px] font-semibold ${className ? className : ""}`}
     >
       {navItem.map((e, i) => (
         <Dl key={i} Component={e.component} path={e.path} name={e.name} />

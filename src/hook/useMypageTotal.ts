@@ -23,7 +23,9 @@ export const useMypageTotal = ()=>{
           setTotalBookmarkCount(data.totalBookmarkCount);  
         })
         .catch(error => {
-          console.error('Error fetching data:', error);
+          if(error.code === "ERR_BAD_RESPONSE"){
+            console.error('서버 통신 오류가 발생했습니다.');
+          }
       });
 
       axios(`/api/v1/user/my/reviews?page=1&size=1`,{
@@ -35,7 +37,9 @@ export const useMypageTotal = ()=>{
           setReviewTotalCount(data.reviewTotalCount);
         })
         .catch(error => {
-          console.error('Error fetching data:', error);
+          if(error.code === "ERR_BAD_RESPONSE"){
+            console.error('서버 통신 오류가 발생했습니다.');
+          }
       });
   
     },[userInfo]);

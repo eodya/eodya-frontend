@@ -15,7 +15,7 @@ export default function FlowerTag({placeState} : {placeState : string}) {
             bgName = "bg-success-200"
             break;
         case "FULL_BLOOM" :
-            bgName = "bg-primary"
+            bgName = "bg-error-200"
             break;
         case "NEXT_YEAR" :
             bgName = "bg-gray-200"

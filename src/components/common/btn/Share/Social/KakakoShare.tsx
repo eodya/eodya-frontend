@@ -1,8 +1,10 @@
 import { initKakao } from "kakao-js-sdk";
+import { useAppSelector } from "../../../../../store/hooks";
 
 export default function KakakoShare({children} : {children : React.ReactNode}){
 
     const currentUrl = window.location.href;
+    const InfoPlace = useAppSelector(state=>state.InfoPlace);
 
     const onClick = ()=>{
 
@@ -15,8 +17,8 @@ export default function KakakoShare({children} : {children : React.ReactNode}){
                     objectType : "feed",
                     content : {
                         title : "어댜",
-                        description : "테스트 메세지입니다.",
-                        imageUrl : "https://picsum.photos/1280/720",
+                        description : "어댜에서 좋은 스팟 보고가세용!",
+                        imageUrl : InfoPlace.info.image,
                         link : {
                             mobileWebUrl : currentUrl,
                             webUrl : currentUrl

@@ -16,6 +16,7 @@ export default function Input({
   className,
   onChange,
   onInput,
+  onClick
 }: React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div
@@ -25,6 +26,7 @@ export default function Input({
         className="h-full w-full min-w-0 bg-transparent px-5 text-base leading-4 tracking-[-0.02em] outline-none placeholder:text-gray-300"
         onInput={onInput}
         onChange={onChange}
+        onClick={onClick}
         name={name}
         id={id}
         maxLength={maxLength}

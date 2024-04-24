@@ -11,8 +11,8 @@ import {MapMarker, MapMarkerProps} from "react-kakao-maps-sdk"
 import bookmark from "../../../assets/image/marker/bookmark.png";
 
 const SIZE = {
-    width : 28,
-    height : 39.6
+    width : 24,
+    height : 28
 }
 
 export default function BookMarker({position,draggable,clickable,onClick,onDragStart,onDragEnd} : MapMarkerProps) {

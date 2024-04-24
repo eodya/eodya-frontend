@@ -39,6 +39,7 @@ export default function FormNickname() {
             username: data.displayName,
           }),
         );
+        alert('닉네임 변경에 성공하였습니다.');
       })
       .catch((err) => {
         console.log(err);

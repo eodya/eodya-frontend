@@ -5,15 +5,11 @@ import { buildGetDefaultMiddleware } from "@reduxjs/toolkit/dist/getDefaultMiddl
 
 import authSlice from "./features/auth/authSlice";
 import mainMarker from "./features/main/marker/markerSlice";
-import spotViewReducer from "./features/main/spotView/slice";
-import spotInfoY from "./features/main/spotInfo/ySlice";
 import spotInfoOpen from "./features/main/spotInfo/InfoSlice";
-import tourOpen from "./features/main/tourList/openSlice";
 import InfoPlace from "./features/main/spotInfo/InfoPlace";
-import tourPlace from "./features/main/tourList/tourPlace";
-import tourClick from "./features/main/map/tourClick";
-import spotClick from "./features/main/map/spotClick";
 import errorModal from "./features/errorModal/modalSlice";
+import location from "./features/main/location/locationSlice";
+import search from "./features/main/search/searchSlice";
 
 const persistConfig = {
   key: "root",
@@ -23,16 +19,12 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   auth: authSlice,
-  spotView: spotViewReducer,
-  spotInfoY,
   spotInfoOpen,
-  tourOpen,
   mainMarker,
   InfoPlace,
-  tourClick,
-  spotClick,
-  tourPlace, // 주변 명소
+  location,
   errorModal,
+  search
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

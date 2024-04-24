@@ -11,6 +11,10 @@ export const getCurrentLocation = async () => {
 
     if(!geolocation){ // 위치를 동의 하지 않았을경우 에러가 뜹니다.
         return {
+            center : {
+                lat : 0,
+                lng : 0
+            },
             error : {
                 message : "위치정보를 가져올수 없습니다."
             }
@@ -40,7 +44,8 @@ export const getCurrentLocation = async () => {
             center: {
                 lat: latitude,
                 lng: longitude
-            }
+            },
+            error : null
         };
 
     } 
@@ -48,6 +53,10 @@ export const getCurrentLocation = async () => {
         if(error instanceof GeolocationPositionError) {
             const { code, message } = error;
             return {
+                center : {
+                    lat : 0,
+                    lng : 0
+                },
                 error: {
                     code,
                     message

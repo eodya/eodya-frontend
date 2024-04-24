@@ -1,78 +1,169 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Map } from "react-kakao-maps-sdk";
-
 import Input from "../../components/common/input/Input";
 import Navigation from "../../components/common/menu/Navigation";
 import BlossomMarker from "../../components/common/marker/BlossomMarker";
-import { SpotView } from "../../components/main/SpotView";
 import { MainBookMarkBtn } from "../../components/main/Btn/MainBookMarkBtn";
-import { getCurrentLocation } from "../../utils/mapLocation/getCurrentLocation";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useWatchLocation } from "../../hook/mapLocation/useWatchLocation";
-import UserMarker from "../../components/common/marker/UserMarker";
-import { change as TourChange } from "../../store/features/main/tourList/openSlice";
+import UserMarker from "../../components/common/marker/UserMarker";  
 import { getMarker } from "../../store/features/main/marker/markerSlice";
-import { hide } from "../../store/features/main/map/tourClick";
-import { spotHide, spotShow } from "../../store/features/main/map/spotClick";
-import SpotIntro from "../../components/main/SpotIntro";
 import { getPlace } from "../../store/features/main/spotInfo/InfoPlace";
-import { getTourPlace } from "../../store/features/main/tourList/tourPlace";
+import { useGetPostion } from "../../hook/mapLocation/useGetPostion";
+import FlowerTag from "../../components/common/tag/FlowerTag";
+import { Link } from "react-router-dom";
+import { LocationBtn } from "../../components/main/Btn/LocationBtn";
+import Tour from "../../components/main/Tour/Tour";
+import { Info } from "../../components/main/Info/Info";
+import { MainMarker } from "../../store/@types/main/marker/MarkerType";
+import TopBar from "../../components/common/menu/TopBar";
+import { changeAction } from "../../store/features/main/location/locationSlice";
+import Search from "../../components/main/Search/Search";
+import { searchAction } from "../../store/features/main/search/searchSlice";
+import BookMarker from "../../components/common/marker/BookMarker";
 
 export default function Main() {
+
   const dispatch = useAppDispatch();
+
+  // 유저
   const { userInfo } = useAppSelector((state) => state.auth);
+  
+  // location 버튼
+  const locationBtn = useAppSelector((state)=>state.location);
+  const [tourOpen,setTourOpen] = useState(false);
+
+  // 북마크
   const [bookMark, setBookMark] = useState(false);
 
-  // 마커 fetch
+  // 등록된 모든 마커
   const { markers } = useAppSelector((state) => state.mainMarker);
-  // 마커 가져오기
   useEffect(() => {
     if (!userInfo) return;
     dispatch(getMarker(userInfo.token));
-  }, [bookMark, userInfo]);
+  }, [bookMark, userInfo,dispatch]);
 
-  // 지도 초기위치 설정
-  const [state, setState] = useState({
-    // 지도의 초기 위치
-    center: { lat: 13, lng: 14 },
-    // 지도 위치 변경시 panto를 이용할지에 대해서 정의
-    isPanto: false,
-  });
-
-  // 포지션 가져오기
-  const getPostion = useCallback(async () => {
-    const result = await getCurrentLocation();
-    if (!result) return;
-
-    const { center, error } = result;
-
-    if (error) {
-      return alert(error.message);
-    }
-
-    if (!center) return;
-    setState({ center, isPanto: true });
-  }, []);
-  useEffect(() => {
+  // 지도 초기위치 설정, 포지션 가져오기
+  const {state,setState,getPostion} = useGetPostion();
+  const currentHandler = ()=>{
+    dispatch(changeAction({
+      nomarl : false,
+      tour : true,
+      info : false
+    }));
     getPostion();
-  }, []);
+  }
 
-  // 현재 위치를 토대로 근처의 명소 가져오기
-  const getTourList = () => {
+  // 마커 클릭
+  const [clickMarker,setClickMarker] = useState(0);
+  const markerHanlder = (e : MainMarker)=>{
     if (!userInfo) return;
-  };
+    // info 데이터
+    setState({
+      center : {
+        lat: e.x, 
+        lng: e.y
+      },
+      isPanto : true
+    }); // 위치 이동
+    setClickMarker(e.placeId); // 마커변동
+    dispatch( // 장소 가져오기
+      getPlace({ token: userInfo.token, placeId: e.placeId }),
+    );
+    dispatch(changeAction({ // 버튼 변경
+      nomarl : false,
+      tour : false,
+      info : true
+    }));
+  }
 
-  // 현재위치 watch
+  // 중심좌표 변경
+  const onCenterChanged = (map : kakao.maps.Map)=>{
+    const latlng = map.getCenter();
+    setState({
+      center: {
+        lat: latlng.getLat(),
+        lng: latlng.getLng(),
+      },
+      isPanto: false,
+    });
+  }
+
+  // 현재위치 Watch
   const { location } = useWatchLocation();
+
+  // 검색기능
+  const data = [
+      {
+          "placeId": 1,
+          "x": 13.0,
+          "y": 14.0,
+          "name": "애기능 동산",
+          "addressDetail": "서울 성북구 12",
+          "placeStatus": "BLOOMING",
+      },        
+      {
+          "placeId": 1,
+          "x": 13.0,
+          "y": 14.0,
+          "name": "애기능 동산2",
+          "addressDetail": "인천 서구 12",
+          "placeStatus": "FULL_BLOOM",
+      },        
+      {
+          "placeId": 1,
+          "x": 13.0,
+          "y": 14.0,
+          "name": "애기능 동산3",
+          "addressDetail": "인천 불구 12",
+          "placeStatus": "NEXT_YEAR",
+      },        
+  ]
+  const [searchInput,setSearchInput] = useState('');
+  const [search,setSearch] = useState(false);
+  const searchHandler = ()=>{
+    setSearch(true);
+  }
+  const searchChangeHandler : React.ChangeEventHandler<HTMLInputElement> = (e)=>{
+    setSearchInput(e.target.value);
+  }
+  const searchSubmitHanlder : React.FormEventHandler<HTMLFormElement> = (e)=>{
+    e.preventDefault();
+    dispatch(searchAction({data,searchInput}));
+  }
 
   return (
     <>
       <main className="relative h-screen overflow-hidden">
+
         {/* 검색버튼 */}
-        <div className="absolute top-[30px] z-50 w-full px-4">
-          <Input type="text" placeholder="장소를 검색해 보세요" />
-          <MainBookMarkBtn bookMark={bookMark} setBookMark={setBookMark} />
-        </div>
+        {
+          !tourOpen &&
+          <div className={`absolute z-50 w-full ${search ? "top-0" : "top-[30px]"}`}>
+            {
+              search && <TopBar onBack={()=>setSearch(false)}> <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">검색</p> </TopBar>
+            }
+            <div className="px-4">
+              <form onSubmit={searchSubmitHanlder}>
+                <Input 
+                  defaultValue={searchInput}
+                  type="text" 
+                  placeholder="장소를 검색해 보세요"
+                  onClick={searchHandler}
+                  className={`${search ? "!bg-gray-100" : ""}`}
+                  onChange={searchChangeHandler}
+                />
+              </form>
+              {
+                !search &&
+                <MainBookMarkBtn 
+                  bookMark={bookMark} 
+                  setBookMark={setBookMark} 
+                />
+              }
+            </div>
+          </div>
+        }
 
         {/* 맵 */}
         <Map
@@ -81,54 +172,131 @@ export default function Main() {
           style={{ width: "100%", height: "100%" }}
           level={5}
           onDragStart={() => {
-            dispatch(hide());
-            dispatch(spotHide());
+            setClickMarker(0); // 마커 클릭 초기화
+            dispatch(changeAction({
+              nomarl : true,
+              tour : false,
+              info : false
+            }));
           }}
-          onCenterChanged={(map) => {
-            // 중심좌표 변경
-            const latlng = map.getCenter();
-            setState({
-              center: {
-                lat: latlng.getLat(),
-                lng: latlng.getLng(),
-              },
-              isPanto: false,
-            });
-          }}
+          onCenterChanged={onCenterChanged}
         >
-          {/* 유저 */}
-          {location && (
-            <UserMarker
-              clickable={true}
-              position={{ lat: location.latitude, lng: location.longitude }}
-            />
-          )}
 
           {/* 마커 */}
           {markers.map((e, i) => (
             <BlossomMarker
               key={i + e.x + e.y}
               position={{ lat: e.x, lng: e.y }}
-              onClick={() => {
-                if (!userInfo) return;
-                // info 데이터
-                dispatch(hide());
-                dispatch(spotShow());
-                dispatch(
-                  getPlace({ token: userInfo.token, placeId: e.placeId }),
-                );
-              }}
+              onClick={() => markerHanlder(e)}
             />
           ))}
+
+          {/* 테스트용 마커 */}
+          <BlossomMarker
+            position={{ lat: 37.581602151002315, lng: 126.69745010724675 }}
+            onClick={() => {
+              if (!userInfo) return;
+              // info 데이터
+              setClickMarker(1);
+              setState({
+                center : {
+                  lat: 37.581602151002315, 
+                  lng: 126.69745010724675
+                },
+                isPanto : true
+              });
+              dispatch(
+                getPlace({ token: userInfo.token, placeId: 1 }),
+              );
+              dispatch(changeAction({ // 버튼 변경
+                nomarl : false,
+                tour : false,
+                info : true
+              }));
+            }}
+            isClicked={clickMarker === 1}
+          />
+
+          <BookMarker
+            position={{ lat: 37.591602151002315, lng: 126.69745010724675 }}
+            onClick={() => {
+              if (!userInfo) return;
+              // info 데이터
+              setClickMarker(1);
+              setState({
+                center : {
+                  lat: 37.581602151002315, 
+                  lng: 126.69745010724675
+                },
+                isPanto : true
+              });
+              dispatch(
+                getPlace({ token: userInfo.token, placeId: 1 }),
+              );
+              dispatch(changeAction({ // 버튼 변경
+                nomarl : false,
+                tour : false,
+                info : true
+              }));
+            }}
+          />
+
+          {/* 유저 마커 */}
+          {
+            location && (
+              <UserMarker
+                clickable={false}
+                position={{ lat: location.latitude, lng: location.longitude }}
+              />
+            )
+          }
+
         </Map>
 
         {/* 마커 관련 명소 */}
-        <SpotIntro getPostion={getPostion} />
+        
+        {
+          locationBtn.nomarl &&
+            <div className="absolute bottom-[70px] left-5 mb-5 z-20">
+              <LocationBtn onClick={currentHandler} />
+            </div>
+        }
 
+        {
+          locationBtn.tour &&
+            <div 
+              className={`absolute ${tourOpen ? "translate-y-0" : "translate-y-3/4"} h-[calc(100vh-70px)] bottom-[70px] z-20 w-full transition-transform duration-300`}
+            >
+              <div className={`absolute bottom-full left-5 z-20 mb-5 transition-transform duration-500}`}>
+                {
+                  !tourOpen && <LocationBtn onClick={currentHandler} />
+                }
+              </div>
+              <Tour tourOpen={tourOpen} setTourOpen={setTourOpen}/>
+            </div>
+        }
+
+        {
+          locationBtn.info &&
+            <div className={`absolute bottom-[70px] z-20 w-full transition-transform duration-300`}>
+              <div className={`absolute bottom-full left-5 z-20 mb-5 transition-transform duration-500}`}>
+                <LocationBtn onClick={currentHandler} />
+              </div>
+              <Info />
+            </div>
+        }
+       
         {/* 네비게이션바 */}
-        <Navigation />
+        {
+          !tourOpen && <Navigation />
+        }
       </main>
-      <SpotView />
+      
+      {
+        search &&
+          <Search/>
+      }
+
     </>
   );
 }

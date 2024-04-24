@@ -32,7 +32,10 @@ function Review() {
         setPage(page + 1);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        setHasNext(false);
+        if(error.code === "ERR_BAD_RESPONSE"){
+          console.error('서버 통신 오류가 발생했습니다.');
+        }
       });
   }, [page]);
 
@@ -57,9 +60,9 @@ function Review() {
               }
               useWindow={false}
             >
-              {reivews.map((reivew, i) => (
-                <ReviewPage item={reivew} key={i} index={i} />
-              ))}
+              {
+                reivews.length === 0 ? <p className="py-4 text-center bg-gray-200 rounded mt-2">후기가 존재하지 않습니다.</p> : reivews.map((reivew, i) => <ReviewPage item={reivew} key={i} index={i} />)
+              }
             </InfiniteScroll>
           </div>
         </div>

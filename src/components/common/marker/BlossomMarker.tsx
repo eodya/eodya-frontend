@@ -9,35 +9,63 @@
 
 import {MapMarker, MapMarkerProps} from "react-kakao-maps-sdk"
 import blossom from "../../../assets/image/marker/blossom.png";
+import blossomClick from "../../../assets/image/marker/blossom_click.png";
 
-const SIZE = {
+// BLOSSOM 이미지
+const BLOSSOM = {
+  src : blossom,
+  size : {
     width : 24,
     height : 28
+  },
+  options: {
+    offset: {
+        x: 24,
+        y: 28,
+    }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+  }
 }
 
-export default function BlossomMarker({position,draggable,clickable,onClick,onDragStart,onDragEnd} : MapMarkerProps) {
+// 기본 이미지
+const NORMAL = {
+  src : blossomClick,
+  size : {
+    width : 26,
+    height : 36
+  },
+  options: {
+    offset: {
+        x: 26,
+        y: 36,
+    }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+  }
+}
+
+interface MarkerProps extends MapMarkerProps {
+  isClicked? : boolean
+}
+
+export default function BlossomMarker({
+  position,
+  draggable,
+  clickable,
+  onClick,
+  onDragStart,
+  onDragEnd,
+  isClicked
+} : MarkerProps) {
+
   return (
     <MapMarker
       position={position}
-      image={{
-        src : blossom,
-        size : {
-            width : SIZE.width,
-            height : SIZE.height
-        },
-        options: {
-            offset: {
-                x: SIZE.width,
-                y: SIZE.height,
-            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-        }
-      }}
+      image={isClicked ? NORMAL : BLOSSOM }
       draggable={draggable}
       clickable={clickable}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
       onClick={onClick}
-    >
-    </MapMarker>
+      zIndex={2}
+    />
   )
+
 }

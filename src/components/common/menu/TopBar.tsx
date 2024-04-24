@@ -24,7 +24,7 @@ export default function TopBar({
   children?: React.ReactNode;
   hide?: boolean;
   canClose?: boolean;
-  onBack?: () => void;
+  onBack?: React.MouseEventHandler<HTMLButtonElement>;
 }) {
   const navigate = useNavigate();
 
