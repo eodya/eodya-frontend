@@ -11,8 +11,8 @@ import {MapMarker, MapMarkerProps} from "react-kakao-maps-sdk"
 import blossom from "../../../assets/image/marker/blossom.png";
 
 const SIZE = {
-    width : 26,
-    height : 36
+    width : 24,
+    height : 28
 }
 
 export default function BlossomMarker({position,draggable,clickable,onClick,onDragStart,onDragEnd} : MapMarkerProps) {
