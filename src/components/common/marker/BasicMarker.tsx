@@ -12,7 +12,7 @@ import basic from "../../../assets/image/marker/basic.png";
 
 const SIZE = {
   width: 34,
-  height: 48.6,
+  height: 54,
 };
 
 export default function BasicMarker({
