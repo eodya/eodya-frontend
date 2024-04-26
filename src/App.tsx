@@ -12,7 +12,7 @@ import PublicRoute from "@components/login/PublicRoute";
 
 import LoginPage from "@page/login/Login";
 import Spinner from "@common/spinner/Spinner";
-import ErrorModal from "@common/btn/Share/Modal/ErrorModal";
+import ErrorModal from "@/components/common/Modal/ErrorModal";
 
 const Main = lazy(() => import("@page/main/Main"));
 const Detail = lazy(() => import("@page/detail/Detail"));
