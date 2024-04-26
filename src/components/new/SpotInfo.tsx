@@ -158,13 +158,13 @@ function SpotInfo({
       onClick={() => setSelectedImage(null)}
     >
       <div>
-        <div className="h-[104px] border-b border-gray-200 pt-3">
+        <div className="border-b border-gray-200 py-4">
           <div className="mb-1">
             <p className="font-bold">{name}</p>
           </div>
-          <div className="flex flex-col gap-0.5">
-            <span className="text-sm">{address}</span>
-            <span className="text-[13px] font-semibold text-primary">
+          <div className="flex flex-col">
+            <span className="mb-0.5 text-sm">{address}</span>
+            <span className="text-[13px] font-semibold text-gray-500">
               {imageDates && imageDates.replace(/-/g, ".") + " 방문"}
             </span>
           </div>
