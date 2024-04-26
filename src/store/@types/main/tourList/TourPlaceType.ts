@@ -1,18 +1,17 @@
 export interface TourPlaceType {
-    loading : boolean
-    data : {
-        placeDetails: PlaceDetail[];
-        hasNext: boolean;
-    }
-    error : null | string
+  loading: boolean;
+  data: {
+    placeDetails: PlaceDetail[];
+    hasNext: boolean;
+  };
+  error: null | string;
 }
 
 export interface PlaceDetail {
-    placeId: number;
-    name: string;
-    addressDetail: string;
-    placeImage: string;
-    bookmarkStatus: boolean;
-    placeStatus: string;
+  placeId: number;
+  name: string;
+  addressDetail: string;
+  placeImage: string;
+  bookmarkStatus: boolean;
+  placeStatus: string;
 }
-

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 
-import Btn from "../../common/btn/Btn";
-import arrow from "../../../assets/image/icon/arrow_drop_down.svg";
+import Btn from "@common/btn/Btn";
+import arrow from "@assets/image/icon/arrow_drop_down.svg";
 
 interface SpotMoreProps {
   onNext: (data: any) => void;

@@ -1,20 +1,14 @@
-/*  
-  position 는 lat: number; lng: number; 를 꼭 넣어주셔야합니다.
-  draggable? 는 true 일경우 드래그가 가능하며 false는 불가능합니다.
-  clickable? 는 true 일경우 클릭 이벤트가 가능하며 false일 경우 불가능합니다.
-  onClick 는 click이벤트를 넣을수있습니다. 매개변수로 marker 를 받습니다.
-  onDragStart 는 드래그 시작시 이벤르를 의미합니다.
-  onDragEnd 는 드래그 끝날시 이벤르를 의미합니다.
-*/
-
 import { MapMarker, MapMarkerProps } from "react-kakao-maps-sdk";
 import user from "../../../assets/image/marker/user.png";
 
-const SIZE = {
-  width: 34,
-  height: 34,
-};
-
+/*  
+  position 는 lat: number; lng: number; 를 꼭 넣어 주셔야 합니다.
+  draggable? 는 true일 경우 드래그가 가능하며 false는 불가능합니다.
+  clickable? 는 true일 경우 클릭 이벤트가 가능하며 false일 경우 불가능합니다.
+  onClick 는 click 이벤트를 넣을 수 있습니다. 매개 변수로 marker를 받습니다.
+  onDragStart 는 드래그 시작 시 이벤트를 의미합니다.
+  onDragEnd 는 드래그 끝날 시 이벤트를 의미합니다.
+*/
 export default function UserMarker({
   position,
   draggable,
@@ -47,3 +41,8 @@ export default function UserMarker({
     ></MapMarker>
   );
 }
+
+const SIZE = {
+  width: 34,
+  height: 34,
+};

@@ -1,16 +1,18 @@
-import Navigation from "../../components/common/menu/Navigation";
 import { useCallback, useState } from "react";
-import { useAppSelector } from "../../store/hooks";
 import axios from "axios";
-import ReviewPage from "../../components/mypage/ReviewPage";
 import InfiniteScroll from "react-infinite-scroller";
-import Spinner from "../../components/common/spinner/Spinner";
-import Information from "../../components/mypage/Information/Information";
-import Tabmenu from "../../components/mypage/TabMenu";
+
+import Navigation from "@common/menu/Navigation";
+import Spinner from "@common/spinner/Spinner";
+import ReviewPage from "@components/mypage/ReviewPage";
+import Information from "@components/mypage/Information/Information";
+import Tabmenu from "@components/mypage/TabMenu";
+
 import {
   Review as ReviewArrayType,
   ReviewType,
-} from "../../types/mypage/ReviewType";
+} from "@/types/mypage/ReviewType";
+import { useAppSelector } from "@store/hooks";
 
 function Review() {
   // user
@@ -33,8 +35,8 @@ function Review() {
       })
       .catch((error) => {
         setHasNext(false);
-        if(error.code === "ERR_BAD_RESPONSE"){
-          console.error('서버 통신 오류가 발생했습니다.');
+        if (error.code === "ERR_BAD_RESPONSE") {
+          console.error("서버 통신 오류가 발생했습니다.");
         }
       });
   }, [page]);
@@ -60,9 +62,15 @@ function Review() {
               }
               useWindow={false}
             >
-              {
-                reivews.length === 0 ? <p className="py-4 text-center bg-gray-200 rounded mt-2">후기가 존재하지 않습니다.</p> : reivews.map((reivew, i) => <ReviewPage item={reivew} key={i} index={i} />)
-              }
+              {reivews.length === 0 ? (
+                <p className="mt-2 rounded bg-gray-200 py-4 text-center">
+                  후기가 존재하지 않습니다.
+                </p>
+              ) : (
+                reivews.map((reivew, i) => (
+                  <ReviewPage item={reivew} key={i} index={i} />
+                ))
+              )}
             </InfiniteScroll>
           </div>
         </div>

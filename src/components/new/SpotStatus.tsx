@@ -1,11 +1,12 @@
 import { useState } from "react";
 
-import Btn from "../common/btn/Btn";
-import state_not_selected from "../../assets/image/icon/state_not_selected.svg";
-import state_not_selected_full from "../../assets/image/icon/state_not_selected_full.svg";
-import state_blooming from "../../assets/image/icon/state_blooming.svg";
-import state_full_bloom from "../../assets/image/icon/state_full_bloom.svg";
-import state_next_year from "../../assets/image/icon/state_next_year.svg";
+import Btn from "@common/btn/Btn";
+
+import state_not_selected from "@assets/image/icon/state_not_selected.svg";
+import state_not_selected_full from "@assets/image/icon/state_not_selected_full.svg";
+import state_blooming from "@assets/image/icon/state_blooming.svg";
+import state_full_bloom from "@assets/image/icon/state_full_bloom.svg";
+import state_next_year from "@assets/image/icon/state_next_year.svg";
 
 interface SpotStatusProps {
   onNext: (data: any) => void;

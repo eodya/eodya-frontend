@@ -1,18 +1,10 @@
-import { ReviewDetailList } from "../../types/review/ReviewType";
+import { ReviewDetailList } from "@/types/review/ReviewType";
 
-function List({
-  item,
-  index,
-}: {
-  item: ReviewDetailList;
-  index: number;
-}){
-
+function List({ item, index }: { item: ReviewDetailList; index: number }) {
   return (
     <div
       className={`${index !== 0 ? "mt-5 border-t border-t-gray-100 pt-5" : ""}  tracking-custom`}
     >
-
       <div
         className={`mt-2 grid w-[calc(100%-56px)] grid-cols-2 gap-1 overflow-hidden rounded-lg`}
       >
@@ -29,7 +21,7 @@ function List({
           </div>
         ))}
       </div>
-      <p className="text-[13px] mt-[3px] leading-none text-gray-300">
+      <p className="mt-[3px] text-[13px] leading-none text-gray-300">
         {item.reviewDate}
       </p>
 
@@ -38,6 +30,6 @@ function List({
       </p>
     </div>
   );
-};
+}
 
-export default List
+export default List;

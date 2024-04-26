@@ -2,24 +2,24 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import { useAppSelector } from "../../../store/hooks";
-import { ReactComponent as BookmarkSVG } from "../../../assets/image/icon/bookmark.svg";
-import { ReactComponent as BookmarkOutlineSVG } from "../../../assets/image/icon/bookmark_outline.svg";
+import { useAppSelector } from "@store/hooks";
+import { ReactComponent as BookmarkSVG } from "@assets/image/icon/bookmark.svg";
+import { ReactComponent as BookmarkOutlineSVG } from "@assets/image/icon/bookmark_outline.svg";
 
 // 북마크 버튼
-export const BookMarkBtn = ({
+export default function BookMarkBtn({
   status,
   numberHide,
   placeId,
   fillStyle,
-  textStyle
+  textStyle,
 }: {
   status: boolean;
   numberHide?: boolean;
   placeId?: string;
-  fillStyle? : string;
-  textStyle? : string
-}) => {
+  fillStyle?: string;
+  textStyle?: string;
+}) {
   const [bookState, setBookState] = useState(status);
   const userInfo = useAppSelector((state) => state.auth.userInfo);
   const navigate = useNavigate();
@@ -60,16 +60,22 @@ export const BookMarkBtn = ({
     >
       <div className="flex h-6 w-6 items-center justify-center">
         {bookState ? (
-          <BookmarkSVG className={`${fillStyle ? fillStyle : "fill-gray-300"}`} />
+          <BookmarkSVG
+            className={`${fillStyle ? fillStyle : "fill-gray-300"}`}
+          />
         ) : (
-          <BookmarkOutlineSVG className={`${fillStyle ? fillStyle : "fill-gray-300"}`} />
+          <BookmarkOutlineSVG
+            className={`${fillStyle ? fillStyle : "fill-gray-300"}`}
+          />
         )}
       </div>
       {!numberHide && (
-        <p className={`text-[13px] font-medium leading-[13px] tracking-custom ${textStyle ? textStyle : "text-gray-300"}`}>
+        <p
+          className={`text-[13px] font-medium leading-[13px] tracking-custom ${textStyle ? textStyle : "text-gray-300"}`}
+        >
           10
         </p>
       )}
     </dl>
   );
-};
+}

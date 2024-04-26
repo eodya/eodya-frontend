@@ -1,7 +1,13 @@
-export function Image({src} : {src? : string}){
-    return (
-      <div className={`relative w-full after:block after:pb-[100%] flex-none rounded-lg overflow-hidden`}>
-        <img className="absolute top-0 left-0 w-full h-full object-cover object-center" src={src} alt="" />
-      </div>
-    )
+export function Image({ src }: { src?: string }) {
+  return (
+    <div
+      className={`relative w-full flex-none overflow-hidden rounded-lg after:block after:pb-[100%]`}
+    >
+      <img
+        className="absolute left-0 top-0 h-full w-full object-cover object-center"
+        src={src}
+        alt=""
+      />
+    </div>
+  );
 }

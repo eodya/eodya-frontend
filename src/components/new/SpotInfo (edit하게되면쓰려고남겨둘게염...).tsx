@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import photo from "../../assets/image/icon/photo.svg";
-import { ReactComponent as Close } from "../../assets/image/icon/close.svg";
-import Btn from "../common/btn/Btn";
+import photo from "@assets/image/icon/photo.svg";
+import { ReactComponent as Close } from "@assets/image/icon/close.svg";
+import Btn from "@common/btn/Btn";
 
 interface SpotInfoProps {
   onNext: (data: any) => void;

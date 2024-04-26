@@ -1,4 +1,4 @@
-import Btn from "../common/btn/Btn";
+import Btn from "@common/btn/Btn";
 
 interface SpotDoneProps {
   onNext: (data: any) => void;

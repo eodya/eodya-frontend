@@ -1,84 +1,95 @@
 import { useEffect, useState } from "react";
-import { ReactComponent as More } from "../../../assets/image/icon/more.svg";
-import RankModal from "../Modal/RankModal";
-import { useAppSelector } from "../../../store/hooks";
-import TopBar from "../../common/menu/TopBar";
-import { PlaceDetail } from "../../../store/@types/main/tourList/TourPlaceType";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+import { ReactComponent as More } from "@assets/image/icon/more.svg";
+import { useAppSelector } from "@store/hooks";
+import { PlaceDetail } from "@store/@types/main/tourList/TourPlaceType";
+import BookMarkBtn from "@common/btn/BookMarkBtn";
+import FlowerTag from "@common/tag/FlowerTag";
+import TopBar from "@common/menu/TopBar";
+import RankModal from "../Modal/RankModal";
 import List from "./List";
-import { BookMarkBtn } from "../../common/btn/BookMarkBtn";
-import FlowerTag from "../../common/tag/FlowerTag";
 
 interface TourType {
   placeDetails: PlaceDetail[];
   hasNext: boolean;
 }
 
-function Tour({tourOpen,setTourOpen} : {tourOpen : boolean,setTourOpen :React.Dispatch<React.SetStateAction<boolean>>}){
-
+function Tour({
+  tourOpen,
+  setTourOpen,
+}: {
+  tourOpen: boolean;
+  setTourOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const navigate = useNavigate();
 
   // 유저
-  const {userInfo} = useAppSelector(state=>state.auth);
+  const { userInfo } = useAppSelector((state) => state.auth);
 
   // 모달창
-  const [isOpen,setIsOpen] = useState(false);
-  const onOpen :React.MouseEventHandler<HTMLButtonElement> = (e)=>{
-    if(tourOpen){
+  const [isOpen, setIsOpen] = useState(false);
+  const onOpen: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    if (tourOpen) {
       e.stopPropagation();
       setIsOpen(true);
     }
-  }
-  const onClose = ()=>{
+  };
+  const onClose = () => {
     setIsOpen(false);
   };
 
-  const [placeDetails,setPlaceDetails] = useState<PlaceDetail[]>([]);
-  const [hasNext,setHasNext] = useState(false);
+  const [placeDetails, setPlaceDetails] = useState<PlaceDetail[]>([]);
+  const [hasNext, setHasNext] = useState(false);
 
   useEffect(() => {
     if (!userInfo) return;
 
-    axios.post(`/api/v1/place/search?page=1&size=10`,{address : "서울"},{
-      headers : {
-          Authorization : userInfo.token,
-          "Content-Type" : "application/json",
-      }
-    })
-    .then(({data} : {data : TourType})=>{
-      setPlaceDetails(data.placeDetails);
-      setHasNext(data.hasNext);
-    })
-    .catch(e=>{
-      console.error(e);
-    })
-
+    axios
+      .post(
+        `/api/v1/place/search?page=1&size=10`,
+        { address: "서울" },
+        {
+          headers: {
+            Authorization: userInfo.token,
+            "Content-Type": "application/json",
+          },
+        },
+      )
+      .then(({ data }: { data: TourType }) => {
+        setPlaceDetails(data.placeDetails);
+        setHasNext(data.hasNext);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   }, [userInfo]);
 
-  const tourClickHandler=(e :PlaceDetail)=>{
+  const tourClickHandler = (e: PlaceDetail) => {
     navigate(`/detail/${e.placeId}`);
-  }
+  };
 
-  const tourClose :React.MouseEventHandler<HTMLButtonElement> = (e)=>{
+  const tourClose: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation();
     setTourOpen(false);
-  }
+  };
 
   return (
     <>
       <div
-        onClick={()=>setTourOpen(true)}
-        className={`bg-white rounded-t-[10px] rounded-r-[10px] font-pretendard h-screen flex flex-col z-30 relative select-none ${tourOpen ? "" : "pt-5"}`}
+        onClick={() => setTourOpen(true)}
+        className={`relative z-30 flex h-screen select-none flex-col rounded-r-[10px] rounded-t-[10px] bg-white font-pretendard ${tourOpen ? "" : "pt-5"}`}
       >
-        {
-          tourOpen &&
-            <div className="flex-none">
-              <TopBar onBack={tourClose}/>
-            </div>
-        }
+        {tourOpen && (
+          <div className="flex-none">
+            <TopBar onBack={tourClose} />
+          </div>
+        )}
 
-        <div className={`flex flex-none items-center justify-between px-4 ${tourOpen ? "pb-2" : ""}`}>
+        <div
+          className={`flex flex-none items-center justify-between px-4 ${tourOpen ? "pb-2" : ""}`}
+        >
           <h2 className="text-xl font-semibold tracking-[-0.02em]">
             근처의 명소
           </h2>
@@ -92,9 +103,9 @@ function Tour({tourOpen,setTourOpen} : {tourOpen : boolean,setTourOpen :React.Di
 
         <div className="overflow-y-auto scrollbar-hide">
           <div className="pb-4">
-            {
-              placeDetails.map((e,i)=><List onClick={()=>tourClickHandler(e)} item={e} key={i} />)
-            }
+            {placeDetails.map((e, i) => (
+              <List onClick={() => tourClickHandler(e)} item={e} key={i} />
+            ))}
             {/* {
               // 테스트
               <div className="bg-white p-4 cursor-pointer">
@@ -128,16 +139,16 @@ function Tour({tourOpen,setTourOpen} : {tourOpen : boolean,setTourOpen :React.Di
                 </div>
               </div>
             } */}
-            {
-              hasNext &&
-                <Link 
-                  className="w-full h-[46px] text-gray-500 text-sm leading-none flex items-center justify-center bg-gray-100 rounded-[10px] mt-4"
-                  to={`/tour`}
-                >더보기</Link>
-            }
+            {hasNext && (
+              <Link
+                className="mt-4 flex h-[46px] w-full items-center justify-center rounded-[10px] bg-gray-100 text-sm leading-none text-gray-500"
+                to={`/tour`}
+              >
+                더보기
+              </Link>
+            )}
           </div>
         </div>
-
       </div>
 
       <RankModal isOpen={isOpen} onClose={onClose} />

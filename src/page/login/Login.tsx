@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import logo from "../../assets/image/logo.svg";
+import logo from "@assets/image/logo.svg";
 
 function LoginPage() {
   const CLIENT_ID = `${process.env.REACT_APP_KAKAO_REST_API_KEY}`;

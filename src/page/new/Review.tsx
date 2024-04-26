@@ -2,19 +2,20 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { open } from "../../store/features/errorModal/modalSlice";
-import TopBar from "../../components/common/menu/TopBar";
-import SpotInfo from "../../components/new/SpotInfo";
-import SpotStatus from "../../components/new/SpotStatus";
-import SpotDone from "../../components/new/SpotDone";
-import SpotMore from "../../components/new/review/SpotMore";
-import { SpotFormValuesType } from "../../types/SpotFormValuesType";
+import TopBar from "@common/menu/TopBar";
+import SpotInfo from "@components/new/SpotInfo";
+import SpotStatus from "@components/new/SpotStatus";
+import SpotDone from "@components/new/SpotDone";
+import SpotMore from "@components/new/review/SpotMore";
+
+import { SpotFormValuesType } from "@/types/SpotFormValuesType";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { open } from "@store/features/errorModal/modalSlice";
 
 const LAST_STEP = 3;
 
 function NewReviewPage() {
-  let { id } = useParams();
+  const { id } = useParams();
   const userInfo = useAppSelector((state) => state.auth.userInfo);
 
   const [step, setStep] = useState(1);

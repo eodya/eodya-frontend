@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-import { ReactComponent as Prev } from "../../../assets/image/icon/prev.svg";
-import { ReactComponent as Close } from "../../../assets/image/icon/close.svg";
+import { ReactComponent as Prev } from "@assets/image/icon/prev.svg";
+import { ReactComponent as Close } from "@assets/image/icon/close.svg";
 
 /* 
   기본적으로 prev 버튼을 생성하고
@@ -10,7 +10,6 @@ import { ReactComponent as Close } from "../../../assets/image/icon/close.svg";
   canClose: TopBar에 X 버튼 유무
   onBack: 뒤로가기 버튼 함수
 */
-
 export default function TopBar({
   className,
   prevClassName,

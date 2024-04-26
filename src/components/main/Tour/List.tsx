@@ -1,6 +1,6 @@
-import { PlaceDetail } from "../../../store/@types/main/tourList/TourPlaceType";
-import { BookMarkBtn } from "../../common/btn/BookMarkBtn";
-import FlowerTag from "../../common/tag/FlowerTag";
+import { PlaceDetail } from "@store/@types/main/tourList/TourPlaceType";
+import BookMarkBtn from "@common/btn/BookMarkBtn";
+import FlowerTag from "@common/tag/FlowerTag";
 
 // 스팟선택
 const List = ({
@@ -11,14 +11,12 @@ const List = ({
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }) => {
   return (
-    <div className="bg-white p-4 cursor-pointer" onClick={onClick}>
+    <div className="cursor-pointer bg-white p-4" onClick={onClick}>
       <div className="relative">
         <div className="absolute left-[10px] top-[10px] z-20 leading-none">
           <FlowerTag placeState={item.placeStatus} />
         </div>
-        <div
-          className={`grid grid-cols-1 gap-1 overflow-hidden rounded-lg`}
-        >
+        <div className={`grid grid-cols-1 gap-1 overflow-hidden rounded-lg`}>
           <div className="relative h-40 w-full">
             <img
               className="absolute left-0 top-0 h-full w-full object-cover object-center"
@@ -39,7 +37,12 @@ const List = ({
           </dl>
           {/* <p className="text-[13px] mt-1 leading-[13px] text-info-300 font-semibold">820m</p> */}
         </div>
-        <BookMarkBtn textStyle="text-primary" fillStyle="fill-primary" placeId={String(item.placeId)} status={item.bookmarkStatus} />
+        <BookMarkBtn
+          textStyle="text-primary"
+          fillStyle="fill-primary"
+          placeId={String(item.placeId)}
+          status={item.bookmarkStatus}
+        />
       </div>
     </div>
   );

@@ -1,10 +1,11 @@
+import FlowerTag from "@common/tag/FlowerTag";
 import { GridLayout } from "./GridLayout";
-import FlowerTag from "../common/tag/FlowerTag";
 import { Image } from "./Image";
-import { ReactComponent as HorizSVG } from "../../assets/image/icon/horiz.svg";
-import { Review } from "../../types/mypage/ReviewType";
-import { useAppDispatch } from "../../store/hooks";
-import { open } from "../../store/features/errorModal/modalSlice";
+
+import { Review } from "@/types/mypage/ReviewType";
+import { ReactComponent as HorizSVG } from "@assets/image/icon/horiz.svg";
+import { useAppDispatch } from "@store/hooks";
+import { open } from "@store/features/errorModal/modalSlice";
 
 export default function ReviewPage({
   item,

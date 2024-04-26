@@ -1,27 +1,28 @@
 import { useEffect, Suspense, lazy } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { RootState } from "./store/store";
-import { useAppSelector } from "./store/hooks";
 
-import Layout from "./components/layout/Layout";
-import KakaoCallback from "./components/login/KakaoCallback";
-import PrivateRoute from "./components/login/PrivateRoute";
-import PublicRoute from "./components/login/PublicRoute";
-// import SplashScreen from './components/layout/SplashScreen';
+import { RootState } from "@store/store";
+import { useAppSelector } from "@store/hooks";
 
-import LoginPage from "./page/login/Login";
-import Spinner from "./components/common/spinner/Spinner";
-import ErrorModal from "./components/common/btn/Share/Modal/ErrorModal";
+import Layout from "@components/layout/Layout";
+import KakaoCallback from "@components/login/KakaoCallback";
+import PrivateRoute from "@components/login/PrivateRoute";
+import PublicRoute from "@components/login/PublicRoute";
+// import SplashScreen from '@components/layout/SplashScreen';
 
-const Main = lazy(()=>import("./page/main/Main"))
-const Detail = lazy(()=>import("./page/detail/Detail"))
-const ReviewList = lazy(()=>import("./page/review/List"));
-const TourList = lazy(()=>import("./page/tour/List"));
-const Mypage = lazy(() => import("./page/mypage/BookMark"));
-const Review = lazy(() => import("./page/mypage/Review"));
-const NewReviewPage = lazy(() => import("./page/new/Review"));
-const NewSpotPage = lazy(() => import("./page/new/Spot"));
-const NotFound = lazy(() => import("./page/404/NotFound"));
+import LoginPage from "@page/login/Login";
+import Spinner from "@common/spinner/Spinner";
+import ErrorModal from "@common/btn/Share/Modal/ErrorModal";
+
+const Main = lazy(() => import("@page/main/Main"));
+const Detail = lazy(() => import("@page/detail/Detail"));
+const ReviewList = lazy(() => import("@page/review/List"));
+const TourList = lazy(() => import("@page/tour/List"));
+const Mypage = lazy(() => import("@page/mypage/BookMark"));
+const Review = lazy(() => import("@page/mypage/Review"));
+const NewReviewPage = lazy(() => import("@page/new/Review"));
+const NewSpotPage = lazy(() => import("@page/new/Spot"));
+const NotFound = lazy(() => import("@page/404/NotFound"));
 
 function App() {
   // const [loading, setLoading] = useState(false);
@@ -80,11 +81,10 @@ function App() {
 
       <Routes>
         <Route element={<Layout />}>
-          
-          <Route index element={<Main />}/>
-          <Route path="/detail/:placeId" element={<Detail/>}/>
-          <Route path="/review/:placeId" element={<ReviewList/>}/>
-          <Route path="/tour" element={<TourList/>}/>
+          <Route index element={<Main />} />
+          <Route path="/detail/:placeId" element={<Detail />} />
+          <Route path="/review/:placeId" element={<ReviewList />} />
+          <Route path="/tour" element={<TourList />} />
 
           {/* Public Routes */}
           <Route

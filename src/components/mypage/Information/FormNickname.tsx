@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { updateUsername } from "../../../store/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { updateUsername } from "@store/features/auth/authSlice";
 
 const MAX_LENGTH = 8;
 
@@ -39,7 +39,7 @@ export default function FormNickname() {
             username: data.displayName,
           }),
         );
-        alert('닉네임 변경에 성공하였습니다.');
+        alert("닉네임 변경에 성공하였습니다.");
       })
       .catch((err) => {
         console.log(err);

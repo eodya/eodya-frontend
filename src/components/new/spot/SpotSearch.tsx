@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 
-import Input from "../../common/input/Input";
-import Spinner from "../../common/spinner/Spinner";
-import TopBar from "../../common/menu/TopBar";
-import SearchItem from "../SearchItem";
+import Input from "@common/input/Input";
+import Spinner from "@common/spinner/Spinner";
+import TopBar from "@common/menu/TopBar";
+import SearchItem from "@components/new/SearchItem";
 
 interface SpotSearchProps {
   isOpen: boolean;

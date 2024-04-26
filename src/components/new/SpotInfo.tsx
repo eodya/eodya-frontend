@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import exifr from "exifr";
 
-import { useAppDispatch } from "../../store/hooks";
-import { SpotFormValuesType } from "../../types/SpotFormValuesType";
-import photo from "../../assets/image/icon/photo.svg";
-import { ReactComponent as Close } from "../../assets/image/icon/close.svg";
-import Btn from "../common/btn/Btn";
-import { open } from "../../store/features/errorModal/modalSlice";
+import Btn from "@common/btn/Btn";
+
+import { SpotFormValuesType } from "@/types/SpotFormValuesType";
+import photo from "@assets/image/icon/photo.svg";
+import { ReactComponent as Close } from "@assets/image/icon/close.svg";
+import { open } from "@store/features/errorModal/modalSlice";
+import { useAppDispatch } from "@store/hooks";
 
 interface SpotInfoProps {
   onNext: (data: any) => void;

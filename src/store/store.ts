@@ -3,13 +3,13 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { buildGetDefaultMiddleware } from "@reduxjs/toolkit/dist/getDefaultMiddleware";
 
-import authSlice from "./features/auth/authSlice";
-import mainMarker from "./features/main/marker/markerSlice";
-import spotInfoOpen from "./features/main/spotInfo/InfoSlice";
-import InfoPlace from "./features/main/spotInfo/InfoPlace";
-import errorModal from "./features/errorModal/modalSlice";
-import location from "./features/main/location/locationSlice";
-import search from "./features/main/search/searchSlice";
+import authSlice from "@store/features/auth/authSlice";
+import mainMarker from "@store/features/main/marker/markerSlice";
+import spotInfoOpen from "@store/features/main/spotInfo/InfoSlice";
+import InfoPlace from "@store/features/main/spotInfo/InfoPlace";
+import errorModal from "@store/features/errorModal/modalSlice";
+import location from "@store/features/main/location/locationSlice";
+import search from "@store/features/main/search/searchSlice";
 
 const persistConfig = {
   key: "root",
@@ -24,7 +24,7 @@ const rootReducer = combineReducers({
   InfoPlace,
   location,
   errorModal,
-  search
+  search,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

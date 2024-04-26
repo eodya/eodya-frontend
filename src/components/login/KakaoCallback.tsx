@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import Spinner from "../common/spinner/Spinner";
-import { login } from "../../store/features/auth/authSlice";
-import { useAppDispatch } from "../../store/hooks";
+import Spinner from "@common/spinner/Spinner";
+import { login } from "@store/features/auth/authSlice";
+import { useAppDispatch } from "@store/hooks";
 
 function KakaoCallback() {
   const navigate = useNavigate();
