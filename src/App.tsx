@@ -1,27 +1,29 @@
 import { useEffect, Suspense, lazy } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { RootState } from "./store/store";
-import { useAppSelector } from "./store/hooks";
+import { Helmet } from "react-helmet-async";
 
-import Layout from "./components/layout/Layout";
-import KakaoCallback from "./components/login/KakaoCallback";
-import PrivateRoute from "./components/login/PrivateRoute";
-import PublicRoute from "./components/login/PublicRoute";
-// import SplashScreen from './components/layout/SplashScreen';
+import { RootState } from "@store/store";
+import { useAppSelector } from "@store/hooks";
 
-import LoginPage from "./page/login/Login";
-import Spinner from "./components/common/spinner/Spinner";
-import ErrorModal from "./components/common/btn/Share/Modal/ErrorModal";
+import Layout from "@components/layout/Layout";
+import KakaoCallback from "@components/login/KakaoCallback";
+import PrivateRoute from "@components/login/PrivateRoute";
+import PublicRoute from "@components/login/PublicRoute";
+// import SplashScreen from '@components/layout/SplashScreen';
 
-const Main = lazy(()=>import("./page/main/Main"))
-const Detail = lazy(()=>import("./page/detail/Detail"))
-const ReviewList = lazy(()=>import("./page/review/List"));
-const TourList = lazy(()=>import("./page/tour/List"));
-const Mypage = lazy(() => import("./page/mypage/BookMark"));
-const Review = lazy(() => import("./page/mypage/Review"));
-const NewReviewPage = lazy(() => import("./page/new/Review"));
-const NewSpotPage = lazy(() => import("./page/new/Spot"));
-const NotFound = lazy(() => import("./page/404/NotFound"));
+import LoginPage from "@page/login/Login";
+import Spinner from "@common/spinner/Spinner";
+import ErrorModal from "@/components/common/Modal/ErrorModal";
+
+const Main = lazy(() => import("@page/main/Main"));
+const Detail = lazy(() => import("@page/detail/Detail"));
+const ReviewList = lazy(() => import("@page/review/List"));
+const TourList = lazy(() => import("@page/tour/List"));
+const Mypage = lazy(() => import("@page/mypage/BookMark"));
+const Review = lazy(() => import("@page/mypage/Review"));
+const NewReviewPage = lazy(() => import("@page/new/Review"));
+const NewSpotPage = lazy(() => import("@page/new/Spot"));
+const NotFound = lazy(() => import("@page/404/NotFound"));
 
 function App() {
   // const [loading, setLoading] = useState(false);
@@ -61,87 +63,106 @@ function App() {
   // }
 
   return (
-    <Suspense
-      fallback={
-        <div
-          role="status"
-          className="flex h-dvh w-full items-center justify-center"
-        >
-          <Spinner />
-        </div>
-      }
-    >
-      {errorModalState.isOpen && (
-        <ErrorModal
-          isOpen={errorModalState.isOpen}
-          message={errorModalState.message}
+    <>
+      <Helmet>
+        <title>어댜!</title>
+        <meta property="og:site_name" content="어댜!" />
+        <meta property="og:title" content="어댜!" />
+        <meta name="description" content="숨은 명소를 찾아보세요." />
+        <meta
+          property="og:image"
+          content={`${process.env.PUBLIC_URL}/og_image.png`}
         />
-      )}
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="어댜!" />
+        <meta name="twitter:description" content="숨은 명소를 찾아보세요." />
+        <meta
+          name="twitter:image"
+          content={`${process.env.PUBLIC_URL}/og_image.png`}
+        />
+      </Helmet>
+      <Suspense
+        fallback={
+          <div
+            role="status"
+            className="flex h-dvh w-full items-center justify-center"
+          >
+            <Spinner />
+          </div>
+        }
+      >
+        {errorModalState.isOpen && (
+          <ErrorModal
+            isOpen={errorModalState.isOpen}
+            message={errorModalState.message}
+          />
+        )}
 
-      <Routes>
-        <Route element={<Layout />}>
-          
-          <Route index element={<Main />}/>
-          <Route path="/detail/:placeId" element={<Detail/>}/>
-          <Route path="/review/:placeId" element={<ReviewList/>}/>
-          <Route path="/tour" element={<TourList/>}/>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route index element={<Main />} />
+            <Route path="/detail/:placeId" element={<Detail />} />
+            <Route path="/review/:placeId" element={<ReviewList />} />
+            <Route path="/tour" element={<TourList />} />
 
-          {/* Public Routes */}
-          <Route
-            path="/login"
-            element={
-              <PublicRoute>
-                <LoginPage />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/api/auth/callback/kakao"
-            element={
-              <PublicRoute>
-                <KakaoCallback />
-              </PublicRoute>
-            }
-          />
+            {/* Public Routes */}
+            <Route
+              path="/login"
+              element={
+                <PublicRoute>
+                  <LoginPage />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/api/auth/callback/kakao"
+              element={
+                <PublicRoute>
+                  <KakaoCallback />
+                </PublicRoute>
+              }
+            />
 
-          {/* Private Routes */}
-          <Route
-            path="/new/review/:id"
-            element={
-              <PrivateRoute>
-                <NewReviewPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/new/spot"
-            element={
-              <PrivateRoute>
-                <NewSpotPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/mypage"
-            element={
-              <PrivateRoute>
-                <Mypage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/mypage/review"
-            element={
-              <PrivateRoute>
-                <Review />
-              </PrivateRoute>
-            }
-          />
+            {/* Private Routes */}
+            <Route
+              path="/new/review/:id"
+              element={
+                <PrivateRoute>
+                  <NewReviewPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/new/spot"
+              element={
+                <PrivateRoute>
+                  <NewSpotPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/mypage"
+              element={
+                <PrivateRoute>
+                  <Mypage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/mypage/review"
+              element={
+                <PrivateRoute>
+                  <Review />
+                </PrivateRoute>
+              }
+            />
 
-          <Route path="/*" element={<NotFound />} />
-        </Route>
-      </Routes>
-    </Suspense>
+            <Route path="/*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </Suspense>
+    </>
   );
 }
 

@@ -1,18 +1,15 @@
-import {
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Map } from "react-kakao-maps-sdk";
 import { debounce } from "lodash";
 
-import { getCurrentLocation } from "../../../utils/mapLocation/getCurrentLocation";
-import fetchAddressAndName from "../../../utils/mapLocation/fetchAddressAndName";
-import { ReactComponent as Edit } from "../../../assets/image/icon/edit.svg";
-import Btn from "../../common/btn/Btn";
-import BasicMarker from "../../common/marker/BasicMarker";
-import { LocationBtn } from "../../main/Btn/LocationBtn";
+import Btn from "@common/btn/Btn";
+import BasicMarker from "@common/marker/BasicMarker";
+import { LocationBtn } from "@components/main/Btn/LocationBtn";
 import SpotSearch from "./SpotSearch";
+
+import { getCurrentLocation } from "@utils/mapLocation/getCurrentLocation";
+import fetchAddressAndName from "@utils/mapLocation/fetchAddressAndName";
+import { ReactComponent as Edit } from "@assets/image/icon/edit.svg";
 
 interface SpotMapProps {
   onNext: (data: any) => void;

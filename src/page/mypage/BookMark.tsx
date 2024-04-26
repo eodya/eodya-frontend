@@ -1,16 +1,18 @@
 import { useState } from "react";
 import axios from "axios";
-import Navigation from "../../components/common/menu/Navigation";
-import { useAppSelector } from "../../store/hooks";
-import BookPage from "../../components/mypage/BookPage";
 import InfiniteScroll from "react-infinite-scroller";
-import Spinner from "../../components/common/spinner/Spinner";
-import Information from "../../components/mypage/Information/Information";
-import Tabmenu from "../../components/mypage/TabMenu";
+
+import Navigation from "@common/menu/Navigation";
+import Spinner from "@common/spinner/Spinner";
+import BookPage from "@components/mypage/BookPage";
+import Information from "@components/mypage/Information/Information";
+import Tabmenu from "@components/mypage/TabMenu";
+
 import {
   Bookmark as BookmarkArryType,
   BookmarkType,
-} from "../../types/mypage/BookmarkType";
+} from "@/types/mypage/BookmarkType";
+import { useAppSelector } from "@store/hooks";
 
 function BookMark() {
   // user
@@ -21,7 +23,7 @@ function BookMark() {
   const [page, setPage] = useState(1);
 
   const loadMore = () => {
-    if(!userInfo) return;
+    if (!userInfo) return;
     axios(`/api/v1/user/my/bookmarks?page=${page}&size=10`, {
       headers: {
         Authorization: userInfo.token,
@@ -34,8 +36,8 @@ function BookMark() {
       })
       .catch((error) => {
         setHasNext(false);
-        if(error.code === "ERR_BAD_RESPONSE"){
-          console.error('서버 통신 오류가 발생했습니다.');
+        if (error.code === "ERR_BAD_RESPONSE") {
+          console.error("서버 통신 오류가 발생했습니다.");
         }
       });
   };
@@ -61,9 +63,15 @@ function BookMark() {
               }
               useWindow={false}
             >
-              {
-                bookmarks.length === 0 ? <p className="py-4 text-center bg-gray-200 rounded mt-2">북마크가 존재하지 않습니다.</p> :bookmarks.map((bookmark, i) => <BookPage item={bookmark} key={i} index={i} />)
-              }
+              {bookmarks.length === 0 ? (
+                <p className="mt-2 rounded bg-gray-200 py-4 text-center">
+                  북마크가 존재하지 않습니다.
+                </p>
+              ) : (
+                bookmarks.map((bookmark, i) => (
+                  <BookPage item={bookmark} key={i} index={i} />
+                ))
+              )}
             </InfiniteScroll>
           </div>
         </div>

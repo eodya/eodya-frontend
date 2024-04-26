@@ -1,5 +1,6 @@
 import Modal from "react-modal";
-import { ReactComponent as Check } from "../../../assets/image/icon/check.svg";
+
+import { ReactComponent as Check } from "@assets/image/icon/check.svg";
 
 export default function RankModal({
   isOpen,

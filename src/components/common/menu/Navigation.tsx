@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
-import { ReactComponent as Home } from "../../../assets/image/icon/home.svg";
-import { ReactComponent as Edit } from "../../../assets/image/icon/edit.svg";
-import { ReactComponent as Person } from "../../../assets/image/icon/person.svg";
+
+import { ReactComponent as Home } from "@assets/image/icon/home.svg";
+import { ReactComponent as Edit } from "@assets/image/icon/edit.svg";
+import { ReactComponent as Person } from "@assets/image/icon/person.svg";
 
 // 하단 네비게이션바
 export default function Navigation({

@@ -2,13 +2,14 @@ import Modal from "react-modal";
 import { FacebookShareButton, TwitterShareButton } from "react-share";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-import Facebook from "../../../../../assets/image/social/Facebook.png";
-import Band from "../../../../../assets/image/social/Band.png";
-import Twitter from "../../../../../assets/image/social/Twitter.png";
-import Kakao from "../../../../../assets/image/social/Kakao.png";
-import BandShare from "../Social/BandShare";
-import KakakoShare from "../Social/KakakoShare";
-import { SnsBox } from "../SnsBox";
+import BandShare from "@common/btn/Share/Social/BandShare";
+import KakakoShare from "@common/btn/Share/Social/KakakoShare";
+import { SnsBox } from "@common/btn/Share/SnsBox";
+
+import Facebook from "@assets/image/social/Facebook.png";
+import Band from "@assets/image/social/Band.png";
+import Twitter from "@assets/image/social/Twitter.png";
+import Kakao from "@assets/image/social/Kakao.png";
 
 export default function ShareModal({
   isOpen,
@@ -49,9 +50,11 @@ export default function ShareModal({
         },
       }}
     >
-      <div className="px-5 pb-5 pt-6 text-center tracking-custom font-pretendard">
+      <div className="px-5 pb-5 pt-6 text-center font-pretendard tracking-custom">
         <div>
-          <h2 className="text-lg font-semibold leading-[23.4px] text-gray-950">공유하기</h2>
+          <h2 className="text-lg font-semibold leading-[23.4px] text-gray-950">
+            공유하기
+          </h2>
           <p className="mt-2 text-base font-normal leading-[20.8px] text-gray-700">
             같이 가고 싶은 친구에게
             <br />

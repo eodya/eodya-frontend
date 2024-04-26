@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-import not_found from "../../assets/image/404.svg";
-import Btn from "../../components/common/btn/Btn";
+import not_found from "@assets/image/404.svg";
+import Btn from "@common/btn/Btn";
 
 function NotFound() {
   const navigate = useNavigate();

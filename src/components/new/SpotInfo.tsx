@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import exifr from "exifr";
 
-import { useAppDispatch } from "../../store/hooks";
-import { SpotFormValuesType } from "../../types/SpotFormValuesType";
-import photo from "../../assets/image/icon/photo.svg";
-import { ReactComponent as Close } from "../../assets/image/icon/close.svg";
-import Btn from "../common/btn/Btn";
-import { open } from "../../store/features/errorModal/modalSlice";
+import Btn from "@common/btn/Btn";
+
+import { SpotFormValuesType } from "@/types/SpotFormValuesType";
+import photo from "@assets/image/icon/photo.svg";
+import { ReactComponent as Close } from "@assets/image/icon/close.svg";
+import { open } from "@store/features/errorModal/modalSlice";
+import { useAppDispatch } from "@store/hooks";
 
 interface SpotInfoProps {
   onNext: (data: any) => void;
@@ -80,17 +81,31 @@ function SpotInfo({
           img.src = e.target.result as string;
 
           img.onload = () => {
+            let width = img.width;
+            let height = img.height;
+            const maxSide = Math.max(width, height);
+
+            // 이미지의 최대 크기 조정
+            if (maxSide > 1000) {
+              const scaleFactor = 1000 / maxSide;
+              width *= scaleFactor;
+              height *= scaleFactor;
+            }
+
             const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
             const ctx = canvas.getContext("2d");
-            canvas.width = img.width;
-            canvas.height = img.height;
+
             if (!ctx) {
               console.error(
                 "Canvas에서 2D 컨텍스트를 가져오는 데 실패했습니다.",
               );
               return;
             }
-            ctx.drawImage(img, 0, 0);
+
+            // 리사이징된 이미지를 캔버스에 그림
+            ctx.drawImage(img, 0, 0, width, height);
 
             canvas.toBlob((blob) => {
               if (!blob) return;
@@ -101,12 +116,22 @@ function SpotInfo({
               setImagesInput([...imagesInput, webpImage]);
             }, "image/webp");
           };
+          img.onerror = () => {
+            throw new Error("이미지를 로드하는 데 실패했습니다.");
+          };
+        };
+        reader.onerror = () => {
+          throw new Error("FileReader가 이미지를 읽는 데 실패했습니다.");
         };
         reader.readAsDataURL(file);
       }
     } catch (error) {
       console.error("Error reading image date: ", error);
-      dispatch(open({ message: "다른 이미지를 선택해 주세요." }));
+      dispatch(
+        open({
+          message: "이미지 처리 중 오류가 발생했습니다. 다시 시도해 주세요.",
+        }),
+      );
     }
   };
 
@@ -157,13 +182,13 @@ function SpotInfo({
       onClick={() => setSelectedImage(null)}
     >
       <div>
-        <div className="h-[104px] border-b border-gray-200 pt-3">
+        <div className="border-b border-gray-200 py-4">
           <div className="mb-1">
             <p className="font-bold">{name}</p>
           </div>
-          <div className="flex flex-col gap-0.5">
-            <span className="text-sm">{address}</span>
-            <span className="text-[13px] font-semibold text-primary">
+          <div className="flex flex-col">
+            <span className="mb-0.5 text-sm">{address}</span>
+            <span className="text-[13px] font-semibold text-gray-500">
               {imageDates && imageDates.replace(/-/g, ".") + " 방문"}
             </span>
           </div>

@@ -1,11 +1,11 @@
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
 
-import error from "../../../../../assets/image/icon/error.svg";
-import { RootState } from "../../../../../store/store";
-import { useAppDispatch, useAppSelector } from "../../../../../store/hooks";
-import { logout } from "../../../../../store/features/auth/authSlice";
-import { close } from "../../../../../store/features/errorModal/modalSlice";
+import error from "@assets/image/icon/error.svg";
+import { RootState } from "@store/store";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { logout } from "@store/features/auth/authSlice";
+import { close } from "@store/features/errorModal/modalSlice";
 
 interface ErrorModalProps {
   isOpen: boolean;
@@ -64,7 +64,7 @@ function ErrorModal({ isOpen, message }: ErrorModalProps) {
       }}
     >
       <div className="font-pretendard tracking-custom">
-        <div className="flex flex-col items-center justify-center gap-2 py-6">
+        <div className="flex flex-col items-center justify-center gap-2 px-6 py-6">
           <img src={error} alt="에러 아이콘" />
           {message}
         </div>

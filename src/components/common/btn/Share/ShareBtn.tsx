@@ -1,7 +1,8 @@
 import { useState } from "react";
 
-import { ReactComponent as ShareSVG } from "../../../../assets/image/icon/share.svg";
-import ShareModal from "./Modal/ShareModal";
+import ShareModal from "@common/Modal/ShareModal";
+
+import { ReactComponent as ShareSVG } from "@assets/image/icon/share.svg";
 
 export default function ShareBtn({
   className,
