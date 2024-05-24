@@ -2,7 +2,7 @@
     <img src="https://github.com/eodya/eodya-frontend/assets/62260343/0f2c20ac-fd64-46d0-9c23-13359cf975ef">
 </p>
 
-> **개발기간** 2024.03 ~ 2024.04 (진행 중)
+> **개발기간** 2024.03 ~ 2024.04
 
 <br />
 
@@ -16,8 +16,8 @@
 
 ### 요구사항
 
-- Node.js 20.11.1^
-- Npm 10.5.0^
+- Node.js ^20.11.1
+- Npm ^10.5.0
 
 ### Installation
 
